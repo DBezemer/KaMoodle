@@ -155,7 +155,3 @@ div.mymedia.video.name {
 #page-mymedia-index #region-post {
     display: none;
 }
-/*Following added by Loomer to eliminate offset of #region-main*/
-#page-mymedia-index #page-content #region-main {
-    width: 100%;
-}

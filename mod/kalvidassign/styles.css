@@ -63,10 +63,6 @@
 #page-mod-kalvidassign-view #region-post, #page-mod-kalvidassign-grade_submissions #region-post {
     display: none;
 }
-/*Following added by Loomer to eliminate offset of #region-main*/
-#page-mod-kalvidassign-view #page-content #region-main, #page-mod-kalvidassign-grade_submissions #page-content #region-main {
-    width: 100%;
-}
 /*Following added by Loomer to center the Save preferences button*/
 #page-mod-kalvidassign-grade_submissions .mform .fitem .felement {
     width: 67%;
