@@ -27,12 +27,17 @@ $string['invalidid'] = 'Invalid ID';
 $string['replace_video'] = 'Replace video';
 $string['custom_player'] = 'Custom player';
 $string['kalvidres:addinstance'] = 'Add a Kaltura Video Resource';
-$string['use_screen_recorder'] = 'Record screen';
+/* Commented out my Loomer to remove screenrecorder reference
+$string['use_screen_recorder'] = 'Record screen';*/
 $string['use_kcw'] = 'Upload media or record from webcam';
 $string['media_method'] = 'Media type';
 $string['media_creation'] = 'Media Type';
-$string['media_creation_help'] = 'Select the method of media you would like to add.  <b>Record Screen</b> will open a screen recording widget, where you can record the actions you make on your desktop.  <b>Upload Media</b> will open the Kaltura Content Wizard where you can upload media from your computer or select previously uploaded media.';
+/* Commented out by Loomer then modified in next line to remove record screen reference
+$string['media_creation_help'] = 'Select the method of media you would like to add.  <b>Record Screen</b> will open a screen recording widget, where you can record the actions you make on your desktop.  <b>Upload Media</b> will open the Kaltura Content Wizard where you can upload media from your computer or select previously uploaded media.';*/
+$string['media_creation_help'] = 'Select the method of media you would like to add.';
 $string['scr_loading'] = 'Loading...';
+/* Commented out and then modified on a new line by Loomer to remove recordscreen reference
 $string['kalvidres:screenrecorder'] = 'Screen recorder';
-$string['javanotenabled'] = 'Browser Java is disabled.  Please enable Java and refresh the page to use the screen recorder.';
+$string['javanotenabled'] = 'Browser Java is disabled.  Please enable Java and refresh the page to use the screen recorder.';*/
+$string['javanotenabled'] = 'Browser Java is disabled.  Please enable Java and refresh the page.';
 $string['previewvideo'] = 'Preview';

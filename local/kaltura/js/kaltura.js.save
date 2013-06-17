@@ -7,7 +7,7 @@ M.local_kaltura.show_loading = function () {
     // the following line was added by Loomer to enable YUI 2in3 in this function
     var Y = M.local_kaltura.Y;
       // begin addition by Loomer to enable YUI 2in3 within this module
-  YUI().use('base', 'dom', 'node', 'event-delegate', 'yui2-container', 'yui2-animation', 'yui2-dragdrop','io-base', 'collection', 'tabview', 'json-parse', function(Y) {
+  YUI().use('node', 'yui2-container', function(Y) {
     Y.one('body').addClass('yui-skin-sam');
     var YAHOO = Y.YUI2;
     // end addition by Loomer to enable YUI 2in3 within this block, except note the addition of the block closing below
@@ -443,7 +443,7 @@ M.local_kaltura.video_assignment = function (Y, conversion_script, panel_markup,
 
   // begin addition by Loomer to enable YUI 2in3 within this module
   M.local_kaltura.Y = Y;
-  YUI().use('base', 'dom', 'node', 'event-delegate', 'yui2-container', 'yui2-animation', 'yui2-dragdrop','io-base', 'collection', 'tabview', 'json-parse', function(Y) {
+  YUI().use('node', 'yui2-container', 'io', 'json-parse', function(Y) {
     Y.one('body').addClass('yui-skin-sam');
     var YAHOO = Y.YUI2;
     // end addition by Loomer to enable YUI 2in3 within this block, except note the addition of the block closing below
@@ -495,15 +495,14 @@ M.local_kaltura.video_assignment = function (Y, conversion_script, panel_markup,
     // Panel show callback.  Add CSS styles to the main div container
     // to raise it above the rest of the elments on the page
     
-    function widget_panel_callback(e, widget_panel) {
+    /* Commented out by Loomer to remove screenrecorder references
+    function /* Commented out by Loomer to remove screenrecorder referenceswidget_panel_callback(e, widget_panel) {
         
         // Check if the screen recording options was checked 
         if (Y.one("#id_media_method_0").get('checked')) {
             widget_panel.setBody(kcw_code);
             widget_panel.show();
-        } 
-        /* Commented out by Loomer to remove screenrecorder references
-        else {
+        } else {
             
             Y.one("#progress_bar_container").setStyle("visibility", "visible");
             Y.one("#slider_border").setStyle("borderStyle", "none");
@@ -527,9 +526,9 @@ M.local_kaltura.video_assignment = function (Y, conversion_script, panel_markup,
             
             kalturaScreenRecord.setDetectResultErrorCustomCallback(java_disabled);
 
-        }*/
+        }
         
-    }
+    }*/
 
 
     kcw_panel.on("click", widget_panel_callback, null, widget_panel);
@@ -690,7 +689,7 @@ M.local_kaltura.video_asignment_submission_view = function (Y, conversion_script
 
   // begin addition by Loomer to enable YUI 2in3 within this module
   M.local_kaltura.Y = Y;
-  YUI().use('base', 'dom', 'node', 'event-delegate', 'yui2-container', 'yui2-animation', 'yui2-dragdrop','io-base', 'collection', 'tabview', 'json-parse', function(Y) {
+  YUI().use('node', 'yui2-container', 'io', 'json-parse', function(Y) {
     Y.one('body').addClass('yui-skin-sam');
     var YAHOO = Y.YUI2;
     // end addition by Loomer to enable YUI 2in3 within this block, except note the addition of the block closing below
@@ -811,7 +810,7 @@ M.local_kaltura.video_resource = function (Y, conversion_script,
 
   // begin addition by Loomer to enable YUI 2in3 within this module
   M.local_kaltura.Y = Y;
-  YUI().use('base', 'dom', 'node', 'event-delegate', 'yui2-container', 'yui2-animation', 'yui2-dragdrop','io-base', 'collection', 'tabview', 'json-parse',  function(Y) {
+  YUI().use('node', 'yui2-container', function(Y) {
     Y.one('body').addClass('yui-skin-sam');
     var YAHOO = Y.YUI2;
     // end addition by Loomer to enable YUI 2in3 within this block, except note the addition of the block closing below
@@ -908,6 +907,7 @@ M.local_kaltura.video_resource = function (Y, conversion_script,
 
     // Panel show callback
 
+    /* Commented out by Loomer to remove references to screenrecorder
     function widget_panel_callback(e, widget_panel) {
 
         // Check if the screen recording options was checked 
@@ -926,10 +926,7 @@ M.local_kaltura.video_resource = function (Y, conversion_script,
             widget_panel.setBody(kcw_code);
             widget_panel.show();
 
-        } 
-
-        /* Commented out by Loomer to remove references to screenrecorder
-        else {
+        } else {
 
             Y.one("#progress_bar_container").setStyle("visibility", "visible");
             Y.one("#slider_border").setStyle("borderStyle", "none");
@@ -952,8 +949,8 @@ M.local_kaltura.video_resource = function (Y, conversion_script,
             
             kalturaScreenRecord.setDetectResultErrorCustomCallback(java_disabled);
 
-        }*/
-    }
+        }
+    }*/
 
     kcw_panel.on("click", widget_panel_callback, null, widget_panel);
 
@@ -1330,7 +1327,7 @@ M.local_kaltura.video_presentation = function (Y, conversion_script,
 
   // begin addition by Loomer to enable YUI 2in3 within this module
   M.local_kaltura.Y = Y;
-  YUI().use('base', 'dom', 'node', 'event-delegate', 'yui2-container', 'yui2-animation', 'yui2-dragdrop','io-base', 'collection', 'tabview', 'json-parse', function(Y) {
+  YUI().use('node', 'yui2-container', function(Y) {
     Y.one('body').addClass('yui-skin-sam');
     var YAHOO = Y.YUI2;
     // end addition by Loomer to enable YUI 2in3 within this block, except note the addition of the block closing below
@@ -1398,6 +1395,7 @@ M.local_kaltura.video_presentation = function (Y, conversion_script,
 
     // Panel show callback
 
+    /* Commented out by Loomer to remove references to screenrecorder
     function widget_panel_callback(e, widget_panel) {
 
         // Check if the screen recording options was checked 
@@ -1414,10 +1412,7 @@ M.local_kaltura.video_presentation = function (Y, conversion_script,
             widget_panel.setBody(kcw_code);
             widget_panel.show();
 
-        } 
-
-        /* Commented out by Loomer to remove references to screenrecorder
-        else {
+        } else {
             
             Y.one("#progress_bar_container").setStyle("visibility", "visible");
             Y.one("#slider_border").setStyle("borderStyle", "none");
@@ -1441,8 +1436,8 @@ M.local_kaltura.video_presentation = function (Y, conversion_script,
             
             kalturaScreenRecord.setDetectResultErrorCustomCallback(java_disabled);
 
-        }*/
-    }
+        }
+    }*/
     
     kcw_panel.on("click", widget_panel_callback, null, widget_panel);
 
@@ -1725,7 +1720,7 @@ M.local_kaltura.video_presentation_view = function (Y, conversion_script,
 
   // begin addition by Loomer to enable YUI 2in3 within this module
   M.local_kaltura.Y = Y;
-  YUI().use('base', 'dom', 'node', 'event-delegate', 'yui2-container', 'yui2-animation', 'yui2-dragdrop','io-base', 'collection', 'tabview', 'json-parse',  function(Y) {
+  YUI().use('node', 'yui2-container', function(Y) {
     Y.one('body').addClass('yui-skin-sam');
     var YAHOO = Y.YUI2;
     // end addition by Loomer to enable YUI 2in3 within this block, except note the addition of the block closing below

@@ -62,11 +62,13 @@ if ($connection) {
 
     // If a connection is made then include the JS libraries
     $partner_id    = local_kaltura_get_partner_id();
+    
+    /* Commented out by Loomer to remove reference to screenrecorder
     $sr_unconf_id  = local_kaltura_get_player_uiconf('mymedia_screen_recorder');
     $host = local_kaltura_get_host();
     $url = new moodle_url("{$host}/p/{$partner_id}/sp/{$partner_id}/ksr/uiconfId/{$sr_unconf_id}");
     $PAGE->requires->js($url, true);
-    $PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);
+    $PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);*/
     
     $PAGE->requires->js('/local/kaltura/js/jquery.js', true);
     $PAGE->requires->js('/local/kaltura/js/swfobject.js', true);

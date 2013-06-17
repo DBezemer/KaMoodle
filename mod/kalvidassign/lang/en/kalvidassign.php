@@ -83,10 +83,13 @@ $string['kalvidassign:submit'] = 'Submit videos';
 $string['grade_video_not_cache'] = 'This video may still be in the process of converting...';
 $string['noenrolledstudents'] = 'No students are enrolled in the course';
 $string['group_filter'] = 'Group Filter';
-$string['use_screen_recorder'] = 'Record screen';
+/* Commented out by Loomer to remove reference to screenrecorder
+$string['use_screen_recorder'] = 'Record screen';*/
 $string['use_kcw'] = 'Upload media or record from webcam';
 $string['scr_loading'] = 'Loading...';
 $string['reviewvideo'] = 'Review submission';
+/* Commented out and new line added by Loomer to remove reference to screenrecorder
 $string['kalvidassign:screenrecorder'] = 'Screen recorder';
-$string['javanotenabled'] = 'Browser Java is disabled.  Please enable Java and refresh the page to use the screen recorder.';
+$string['javanotenabled'] = 'Browser Java is disabled.  Please enable Java and refresh the page to use the screen recorder.';*/
+$string['javanotenabled'] = 'Browser Java is disabled.  Please enable Java and refresh the page.';
 $string['cannotdisplaythumbnail'] = 'Unable to display thumbnail';

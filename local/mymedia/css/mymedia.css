@@ -21,6 +21,8 @@ table#mymedia_video_metadata_table tr {
 
 #screenrecorder_btn_container.mymedia.screenrecorder.button.container {
     float: left;
+    /*added by Loomer to hide the record screen button in My Media*/
+    display: none;
 }
 
 #simple_search_container input#clear_simple_search_btn {
@@ -148,4 +150,12 @@ div.mymedia.video.name {
 
 .yui3-tabview-panel #metadata, .yui3-tabview-panel #preview {
     height:450px; width:490px;
+}
+/*Following added by Loomer to hide the right blocks column even when editing is on*/
+#page-mymedia-index #region-post {
+    display: none;
+}
+/*Following added by Loomer to eliminate offset of #region-main*/
+#page-mymedia-index #page-content #region-main {
+    width: 100%;
 }

@@ -28,7 +28,9 @@ require_once(dirname(__FILE__) . '/locallib.php');
  * @param object - navigation_node
  * @return - nothing
  */
-function kaltura_extends_navigation($navigation) {
+
+// renamed by Loomer - function kaltura_extends_navigation($navigation) {
+function local_kaltura_extends_navigation($navigation) {
 
     global $USER, $PAGE, $SITE;
 

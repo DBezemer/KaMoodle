@@ -321,6 +321,7 @@ if ($hassiteconfig) {
     $adminsetting->plugin = KALTURA_PLUGIN_NAME;
     $settings->add($adminsetting);
 
+    /* Commented out by Loomer to remove reference to screenrecorder
     $mymedia_scr_choices = array(KALTURA_PLAYER_MYMEDIA_SCREEN_RECORDER => get_string('player_mymedia_screen_recorder', 'local_kaltura'),
                              0 => get_string('custom_screen_recorder', 'local_kaltura'));
 
@@ -332,7 +333,7 @@ if ($hassiteconfig) {
     $adminsetting = new admin_setting_configtext('mymedia_screen_recorder_custom', get_string('kaltura_screen_recorder_custom', 'local_kaltura'),
                        get_string('kaltura_screen_recorder_custom_desc', 'local_kaltura'), '', PARAM_INT);
     $adminsetting->plugin = KALTURA_PLUGIN_NAME;
-    $settings->add($adminsetting);
+    $settings->add($adminsetting);*/
 
 
     // Kaltura Filter Plug-in settings
@@ -367,10 +368,11 @@ if ($hassiteconfig) {
     $adminsetting->plugin = KALTURA_PLUGIN_NAME;
     $settings->add($adminsetting);
 
+    /* Commented out my Loomer to remove reference to screenrecorder
     $adminsetting = new admin_setting_configcheckbox('enable_screen_recorder', get_string('enable_screen_recorder', 'local_kaltura'),
                        get_string('enable_screen_recorder_desc', 'local_kaltura'), '1');
     $adminsetting->plugin = KALTURA_PLUGIN_NAME;
-    $settings->add($adminsetting);
+    $settings->add($adminsetting);*/
 
     $adminsetting = new admin_setting_configtext('mymedia_application_name', get_string('application_name', 'local_kaltura'),
                        get_string('application_name_desc', 'local_kaltura'), 'Moodle', PARAM_NOTAGS);

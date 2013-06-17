@@ -78,7 +78,9 @@ $capabilities = array(
         )
     ),
 
-/*    'local/mymedia:delete' => array(
+/*  Note that the following lines were not  NOT commented out by Loomer  
+
+    'local/mymedia:delete' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_USER,
         'archetypes' => array(

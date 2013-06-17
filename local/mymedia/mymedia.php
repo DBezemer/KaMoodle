@@ -68,12 +68,13 @@ if (!$connection) {
 $partner_id    = local_kaltura_get_partner_id();
 $login_session = '';
 
+/* Commented out by Loomer to remove use of screenrecorder
 // Include javascript for screen recording widget
 $uiconf_id  = local_kaltura_get_player_uiconf('mymedia_screen_recorder');
 $host = local_kaltura_get_host();
 $url = new moodle_url("{$host}/p/{$partner_id}/sp/{$partner_id}/ksr/uiconfId/{$uiconf_id}");
 $PAGE->requires->js($url, true);
-$PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);
+$PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);*/
 
 $courseid = get_courseid_from_context($PAGE->context);
 

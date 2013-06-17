@@ -36,7 +36,8 @@ define('KALTURA_PLAYER_PLAYERREGULARLIGHT',             6709421); // KDP light
 define('KALTURA_PLAYER_PLAYERVIDEOPRESENTATION',        4860481);
 define('KALTURA_FILE_UPLAODER',                         6386311); // KSU
 define('KALTURA_PLAYER_MYMEDIA_UPLOADER',               8464961); // KCW
-define('KALTURA_PLAYER_MYMEDIA_SCREEN_RECORDER',        9780761); // KSR
+/* Commented out by Loomer to remove reference to screenrecorder
+define('KALTURA_PLAYER_MYMEDIA_SCREEN_RECORDER',        9780761); // KSR*/
 define('KALTURA_PLAYER_KSU',                            1002613); // KSU
 
 define('KALTURA_FILTER_VIDEO_WIDTH', 400);
@@ -497,7 +498,8 @@ function local_kaltura_get_player_uiconf($type = 'player') {
         case 'pres_uploader':
         case 'presentation':
         case 'mymedia_uploader':
-        case 'mymedia_screen_recorder':
+        /* Commented out by Loomer to remover reference to screenrecorder
+        case 'mymedia_screen_recorder':*/
         case 'assign_uploader':
         case 'player_filter':
         case 'simple_uploader';

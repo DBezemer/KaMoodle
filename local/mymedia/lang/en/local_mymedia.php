@@ -10,7 +10,8 @@ $string['mymedia:sharesite'] = 'Share video with site';
 $string['mymedia:upload'] = 'Upload a video';
 $string['mymedia:delete'] = 'Delete uploaded videos';
 $string['mymedia:clip'] = 'Create a clip of a video';
-$string['mymedia:screenrecorder'] = 'Screen recorder';
+/* Commented out my Loomer to remove screenrecorder reference
+$string['mymedia:screenrecorder'] = 'Screen recorder';*/
 
 // Navigation block
 $string['nav_mymedia'] = 'My Media';
@@ -78,5 +79,6 @@ $string['no_videos'] = 'No videos found';
 $string['repository_enable'] = 'Please enable and configure the Kaltura repository plug-in';
 
 // Screen recording
-$string['screenrecorder'] = 'Record screen';
+/* Commented out by Loomer to remove reference to screenrecorder
+$string['screenrecorder'] = 'Record screen';*/
 $string['javanotenabled'] = 'Browser Java is disabled.  Please enable Java to use the screen recorder.';

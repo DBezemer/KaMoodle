@@ -112,7 +112,8 @@ $string['enable_screen_recorder'] = 'Enable screen recorder';
 $string['enable_screen_recorder_desc'] = 'A global setting to enable the screen recorder across all Kaltura plug-ins (My Media, Video resource, Video presentation and Video assignment).  This option overrides any specific capability settings.';
 
 // Screen recorder
-$string['screenrecorder'] = 'Screen Recording';
+/* Commented out by Loomer to remove reference to screenrecorder
+$string['screenrecorder'] = 'Screen Recording';*/
 
 // Capabilities
 $string['kaltura:view_report'] = 'View Kaltura reports';
