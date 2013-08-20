@@ -22,5 +22,5 @@
 
 $string['filtername'] = 'Kaltura Media';
 $string['enable'] = 'Embed Kaltura Video Links';
-$string['enable_help'] = 'Convert Kaltura video links to embed code';
-$string['unable'] = 'Unable to convert video at this time';
+$string['enable_help'] = 'Converteer Kaltura video links naar een embed code';
+$string['unable'] = 'Momenteel niet in staat om een video te converteren';

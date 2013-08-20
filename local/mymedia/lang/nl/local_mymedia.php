@@ -1,84 +1,85 @@
 <?php
-$string['pluginname'] = 'My Media';
+$string['pluginname'] = 'Mijn Media';
 
 // Capability strings
-$string['mymedia:view'] = 'View My Media page';
-$string['mymedia:search'] = 'Search for uploaded videos';
-$string['mymedia:editmetadata'] = 'Edit video metadata';
-$string['mymedia:sharecourse'] = 'Share video with courses';
-$string['mymedia:sharesite'] = 'Share video with site';
-$string['mymedia:upload'] = 'Upload a video';
-$string['mymedia:delete'] = 'Delete uploaded videos';
-$string['mymedia:clip'] = 'Create a clip of a video';
+$string['mymedia:view'] = 'Bekijk Mijn Media pagina';
+$string['mymedia:search'] = 'Zoek naar geuploade videos';
+$string['mymedia:editmetadata'] = 'Bewerk video metadata';
+$string['mymedia:sharecourse'] = 'Deel video met cursussen';
+$string['mymedia:sharesite'] = 'Deel video met site';
+$string['mymedia:upload'] = 'Upload een video';
+$string['mymedia:delete'] = 'Verwijder uploaded videos';
+$string['mymedia:clip'] = 'Maak een clip of een video';
 /* Commented out my Loomer to remove screenrecorder reference
-$string['mymedia:screenrecorder'] = 'Screen recorder';*/
+$string['mymedia:screenrecorder'] = 'Scherm opname';*/
 
 // Navigation block
-$string['nav_mymedia'] = 'My Media';
+$string['nav_mymedia'] = 'Mijn Media';
 $string['nav_upload'] = 'Upload';
 
 // Heading
-$string['heading_mymedia'] = 'My Media';
+$string['heading_mymedia'] = 'Mijn Media';
 
 // Video actions
+
 $string['preview_link'] = 'Preview';
-$string['share_link'] = 'Share';
-$string['edit_link'] = 'Edit';
+$string['share_link'] = 'Delen';
+$string['edit_link'] = 'Bewerken';
 $string['clip_link'] = 'Clip';
-$string['delete_link'] = 'Delete';
+$string['delete_link'] = 'Verwijderen';
 
 // Video details panel
 $string['details'] = 'Video Details';
 
 // Video details tabs
 $string['tab_preview'] = 'Preview';
-$string['tab_metadata'] = 'Edit';
-$string['tab_share'] = 'Share';
-$string['metadata_video_name'] = 'Name: ';
+$string['tab_metadata'] = 'Bewerken';
+$string['tab_share'] = 'Delen';
+$string['metadata_video_name'] = 'Naam: ';
 $string['metadata_video_tags'] = 'Tags: ';
-$string['metadata_video_desc'] = 'Description: ';
-$string['video_converting'] = 'The video is still converting.  Please try again soon.';
-$string['loading'] = 'Loading... please wait';
-$string['scr_loading'] = 'Loading...';
-$string['save'] = 'Save & exit';
-$string['missing_required'] = 'Please enter a name for the video';
-$string['error_saving'] = 'There was an error saving the settings.  Please contact your system administrator.';
-$string['error_not_owner'] = 'You must be the owner of the video.  If you are please contact your system administrator.';
-$string['success_saving_hdr'] = 'Saved';
-$string['success_saving'] = 'Successfully saved video settings';
-$string['failure_saved_hdr'] = 'Settings not saved';
-$string['check_all'] = 'Check all';
-$string['site_share'] = 'Share with site';
-$string['video_error'] = 'There was an error processing this video.  Please try another video';
-$string['video_bad'] = 'Please do not use this video';
-$string['video_retrival_error'] = 'Error retrieving the video.  Please try again';
-$string['converting'] = 'Video converting';
-$string['continue'] = 'Continue';
+$string['metadata_video_desc'] = 'Beschrijving: ';
+$string['video_converting'] = 'De video is nog aan het converteren.  Probeer het zo nog een keer.';
+$string['loading'] = 'Laden... Even geduld alsjeblieft';
+$string['scr_loading'] = 'Laden...';
+$string['save'] = 'Opslaan & afsluiten';
+$string['missing_required'] = 'Vul een naam in voor de video';
+$string['error_saving'] = 'Er is een fout opgetreden tijdens het opslaan van de instellingen. Neem contact op met de systeembeheerder.';
+$string['error_not_owner'] = 'Je moet eigenaar van de video zijn. Indien je eigenaar bent neem dan contact op met de systeembeheerder.';
+$string['success_saving_hdr'] = 'opgeslagen';
+$string['success_saving'] = 'De videoinstellingen zijn succesvol opgeslagen';
+$string['failure_saved_hdr'] = 'Instellingen zijn niet opgeslagen';
+$string['check_all'] = 'Check alles';
+$string['site_share'] = 'Deel met site';
+$string['video_error'] = 'Er is een fout opgetreden tijdens het verwerken.  Probeer een andere video';
+$string['video_bad'] = 'Gebruik deze video alsjeblieft niet';
+$string['video_retrival_error'] = 'Er is een fout opgetreden tijdens het ophalen van de video. Probeer het nogmaals';
+$string['converting'] = 'Converteren van video';
+$string['continue'] = 'Doorgaan';
 
 // Deleting a video
-$string['delete_video_hdr'] = 'You are about to delete a video';
-$string['delete_video_confirm'] = 'Are you sure you want to delete this video?  Once this action has been performed it cannot be undone. Video Name - ';
-$string['delete_video_complete'] = 'Video has been deleted';
-$string['delete_video_failed'] = 'Failed to delete video';
-$string['delete_video_failed_not_owner'] = 'You cannot delete a video you do not own.  If you own this video please contact the site administrator';
-$string['delete_video_not_exist'] = 'This video no longer exists';
+$string['delete_video_hdr'] = 'Je gaat nu een video verwijderen';
+$string['delete_video_confirm'] = 'Weet je zeker dat je deze video wilt verwijderen?  Deze actie kan niet ongedaan worden gemaakt. Video Name - ';
+$string['delete_video_complete'] = 'De video is verwijderd';
+$string['delete_video_failed'] = 'Mislukt om video te verwijderen';
+$string['delete_video_failed_not_owner'] = 'Het is niet mogelijk om een video te verwijderen indien je geen eigenaar bent. Indien je eigenaar bent neem dan contact op de systeembeheerder';
+$string['delete_video_not_exist'] = 'Deze video bestaat niet meer';
 
 // Video Upload
-$string['upload'] = 'Upload media or record from webcam';
-$string['upload_success_hdr'] = 'Upload Success';
-$string['upload_success'] = 'Video uploaded successfully';
+$string['upload'] = 'Upload media of neem een video op met de webcam';
+$string['upload_success_hdr'] = 'Upload Succes';
+$string['upload_success'] = 'Video is succesvol geupload';
 
 // Search
-$string['search'] = 'Search';
-$string['search_clear'] = 'Clear';
-$string['search_text_tooltip'] = 'Enter video name or tags';
+$string['search'] = 'Zoeken';
+$string['search_clear'] = 'Wissen';
+$string['search_text_tooltip'] = 'Vul video naam of tags in';
 
 // Trouble
-$string['problem_viewing'] = 'There is a problem displaying the page.  Please try again or contact your site administrator';
-$string['no_videos'] = 'No videos found';
-$string['repository_enable'] = 'Please enable and configure the Kaltura repository plug-in';
+$string['problem_viewing'] = 'Er is een probleem met het weergeven van de pagina. Probeer het nogmaals of neem contact op met de systeembeheerder';
+$string['no_videos'] = 'Geen videos gevonden';
+$string['repository_enable'] = 'Toestaan en de Kaltura opslagruimte plug-in instellen';
 
 // Screen recording
 /* Commented out by Loomer to remove reference to screenrecorder
-$string['screenrecorder'] = 'Record screen';*/
-$string['javanotenabled'] = 'Browser Java is disabled.  Please enable Java to use the screen recorder.';
+$string['screenrecorder'] = 'Opname scherm';*/
+$string['javanotenabled'] = 'Browser Java is uitgeschakeld.  Sta Java toe en gebruik het opname scherm.';

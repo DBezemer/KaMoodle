@@ -22,12 +22,12 @@
 
 // Required strings
 $string['pluginname'] = 'Kaltura';
-$string['configplugin'] = 'Kaltura Configuration';
-$string['pluginname_help'] = 'A Kaltura Repository';
+$string['configplugin'] = 'Kaltura Configuratie';
+$string['pluginname_help'] = 'Een Kaltura Repository';
 
 // Settings page strings
-$string['itemsperpage'] = 'Files to display on a page';
-$string['itemsperpage_help'] = '<p>This is the number of video entries that will be displayed on the page at one time.  Additional video entries will be paged.</p>';
+$string['itemsperpage'] = 'Weergegeven bestanden op een pagina';
+$string['itemsperpage_help'] = '<p>Dit is het aantal video entries dat wordt weergegeven op de pagina. Aanvullende video entries worden op de volgende paginas weergegeven.</p>';
 $string['five'] = '5';
 $string['ten'] = '10';
 $string['fifteen'] = '15';
@@ -40,66 +40,66 @@ $string['twohundred'] = '200';
 $string['threehundred'] = '300';
 $string['fourhundred'] = '400';
 $string['fivehundred'] = '500';
-$string['connection_status'] = 'Connection Status';
-$string['connected'] = 'Connection to Kaltura successful';
-$string['not_connected'] = 'Connection to Kaltura failed';
-$string['using_metadata_profile'] = 'Metadata Profile';
-$string['metadata_profile_found'] = 'User Metadata %a';
-$string['metadata_profile_not_found'] = 'No Metadata profile found';
-$string['metadata_profile_error'] = 'Error creating metadata profile';
+$string['connection_status'] = 'Connectie Status';
+$string['connected'] = 'Connectie met Kaltura is succesvol';
+$string['not_connected'] = 'Connectie met Kaltura is mislukt';
+$string['using_metadata_profile'] = 'Metadata Profiel';
+$string['metadata_profile_found'] = 'Gebruiker Metadata %a';
+$string['metadata_profile_not_found'] = 'Geen Metadata profiel gevonden';
+$string['metadata_profile_error'] = 'Er is een fout opgetreden bij het creeren van metadata profiel';
 $string['metadata_profile_info'] = '{$a->profilename} (Profile Id: {$a->profileid} | Created: {$a->created})';
-$string['rootcategory'] = 'Root category path';
-$string['rootcategory_help'] = '<p>Set the root category path to create a category/sub-category structure, in the KMC, to organize all of the Moodle course categories.  '.
-                               'For example: <b>Sites>My Moodle Site</b>, will create a KMC category called "Sites" and a sub category called "My Moodle Site".  '.
-                               'All of your Moodle course categories will created as a sub directories of "My Moodle Site".</p>';
-$string['rootcategory_warning'] = 'The root category has already been set.  If you change the name all Moodle course category related data on the KMC will be lost';
-$string['rootcategory_created'] = 'Root category created with the following structure <b>{$a}</b>';
-$string['rootcategory_create'] = 'Please specify a root category.';
-$string['unable_to_create'] = 'Unable to create root category as <b>{$a}</b>.  Please Choose another name(s) for the root category';
-$string['resetroot'] = 'Reset category location';
-$string['confirm_category_reset'] = '<p>Are you user you want to reset the root category location?</p><p>If you perform this action, all video course sharing and usage information in Moodle will be lost.</p>'.
-                                    '<p>If you accidentially click "continue", it is possible to get your information back, but only if you set the category path back to the <b>original</b> value.</p>'.
-                                    '<p>Choose wisely.</p>';
-$string['category_reset_complete'] = '<b>Root category has been reset</b>';
-$string['no_permission_metadata'] = 'In order to use the Kaltura repository plug-in your account must have custom metadata enabled.  Please consult with your Kaltura rep.';
-$string['no_permission_metadata_error'] = 'Error';
+$string['rootcategory'] = 'Root categorie pad';
+$string['rootcategory_help'] = '<p>Stel de root categorie pad in om een categorie/sub-categorie structuur te creeren, in de KMC, om alle Moodle cursus categorieen te organiseren.  '.
+                               'Bijvoorbeeld: <b>Sites>My Moodle Site</b>, creeert een KMC categorie genaamd "Sites" en een subcategorie genaamd "My Moodle Site".  '.
+                               'Al jouw Moodle cursus categorieen worden ingesteld als submappen van "My Moodle Site".</p>';
+$string['rootcategory_warning'] = 'De root categorie is al ingesteld. Als je de naam verandert zullen alle gerelateerde Moodle cursus categorieen in de KMC verdwijnen.';
+$string['rootcategory_created'] = 'De root categorie is gecreeerd met de volgende structuur <b>{$a}</b>';
+$string['rootcategory_create'] = 'Specificeer een root categorie.';
+$string['unable_to_create'] = 'Niet mogelijk om root categorie te creeeren <b>{$a}</b>. Kies een andere naam of namen voor de root categorie';
+$string['resetroot'] = 'Reset categorie locatie';
+$string['confirm_category_reset'] = '<p>Ben je een gebruiker en wil je de root categorie locatie resetten?</p><p>Na het uitvoeren van deze actie zullen alle gedeelde videos in de cursus en gebruikersinformatie in Moodle verloren raken.</p>'.
+                                    '<p>Indien je per ongeluk op "continue" klikt, dan is het mogelijk jouw informatie terug te krijgen, maar alleen als je het categorie pad terug zet in de <b>originele</b> waarde.</p>'.
+                                    '<p>Kies verstandig.</p>';
+$string['category_reset_complete'] = '<b>Root categorie is gereset</b>';
+$string['no_permission_metadata'] = 'Om de Kaltura repository plug-in in jouw account te gebruiken moet je aangepaste metadata inschakelen. Raadpleeg alsjeblief jouw Kaltura rep.';
+$string['no_permission_metadata_error'] = 'Fout';
 
 // File Picker Strings
-$string['keyword'] = 'Search';
+$string['keyword'] = 'Zoeken';
 $string['filter'] = 'Filter';
 
 
 // Capability strings
-$string['kaltura:view'] = 'View Kaltura repository';
-$string['kaltura:systemvisibility'] = 'Course Video Visibility';
-$string['kaltura:sharedvideovisibility'] = 'Shared Video Visibility';
+$string['kaltura:view'] = 'Bekijk Kaltura repository';
+$string['kaltura:systemvisibility'] = 'Cursus Video Zichtbaarheid';
+$string['kaltura:sharedvideovisibility'] = 'Gedeelde Video Zichtbaarheid';
 
 // Search UI
-$string['search_name_tooltip'] = 'Type in media name or tag and press enter';
+$string['search_name_tooltip'] = 'Typ de naam van de media of tag in en druk op enter';
 $string['search_tags'] = 'Media tags';
-$string['search_site'] = 'Vidoes shared with site';
-$string['search_site'] = 'Videos shared with course(s)';
-$string['course_filter'] = 'Courses whose name';
-$string['contains'] = 'Contains';
-$string['equals'] = 'Equals';
-$string['startswith'] = 'Starts With';
-$string['endswith'] = 'Ends With';
-$string['search_own_upload'] = 'Media you own';
-$string['search_shared_or_used'] = 'Search for';
-$string['search_shared'] = 'Media shared with courses';
-$string['search_used'] = 'Media used in courses';
-$string['search_site_shared'] = 'Media shared with site';
-$string['course_filter_select_title'] = 'Course name filter type';
+$string['search_site'] = 'Videos gedeeld met site';
+$string['search_site'] = 'Videos gedeeld met cursus(sen)';
+$string['course_filter'] = 'Cursussen wiens naam';
+$string['contains'] = 'Bevatten';
+$string['equals'] = 'Identieke';
+$string['startswith'] = 'Begint met';
+$string['endswith'] = 'Eindigt met';
+$string['search_own_upload'] = 'Media in eigen beheer';
+$string['search_shared_or_used'] = 'Zoek naar';
+$string['search_shared'] = 'Media gedeeld met cursussen';
+$string['search_used'] = 'Media gebruikt in cursussen';
+$string['search_site_shared'] = 'Media gedeeld met site';
+$string['course_filter_select_title'] = 'Cursus naam filter type';
 
 // Browse UI
-$string['folder_shared_videos'] = 'Media shared with courses';
-$string['folder_shared_videos_shortname'] = 'Shared Media';
-$string['folder_used_videos'] = 'Media used in courses';
-$string['folder_used_videos_shortname'] = 'Used Media';
-$string['folder_site_shared_videos'] = 'Media shared with site';
-$string['folder_site_shared_videos_shortname'] = 'Site Shared Media';
+$string['folder_shared_videos'] = 'Media gedeeld met cursussen';
+$string['folder_shared_videos_shortname'] = 'Gedeelde Media';
+$string['folder_used_videos'] = 'Media gebruikt in cursussen';
+$string['folder_used_videos_shortname'] = 'Gebruikte Media';
+$string['folder_site_shared_videos'] = 'Media gedeeld met site';
+$string['folder_site_shared_videos_shortname'] = 'Site gedeelde Media';
 
-$string['crumb_home'] = 'Home';
-$string['crumb_shared'] = 'Shared with courses';
-$string['crumb_used'] = 'Used in courses';
-$string['crumb_site_shared'] = 'Shared with site';
+$string['crumb_home'] = 'Beginscherm';
+$string['crumb_shared'] = 'Gedeeld met cursussen';
+$string['crumb_used'] = 'Gebruikt in cursussen';
+$string['crumb_site_shared'] = 'Gedeeld met site';

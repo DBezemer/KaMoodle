@@ -1,95 +1,95 @@
 <?php
 
-$string['modulenameplural'] = 'Kaltura Video Assignments';
-$string['modulename'] = 'Kaltura Video Assignment';
-$string['modulename_help'] = 'The Kaltura Video Assignment enables a teacher to create assignments that require students to upload and submit Kaltura videos. Teachers can grade student submissions and provide feedback.';
-$string['name'] = 'Name';
-$string['availabledate'] = 'Available from';
-$string['duedate'] = 'Due Date';
-$string['preventlate'] = 'Prevent late submissions';
-$string['allowdeleting'] = 'Allow resubmitting';
-$string['allowdeleting_help'] = 'If enabled, students may replace submitted videos. Whether it is possible to submit after the due date '.
-                                'is controlled by the \'Prevent late submissions\' setting';
-$string['emailteachers'] = 'Email alerts to teachers';
-$string['emailteachers_help'] = 'If enabled, teachers receive email notification whenever students add or update an assignment submission.
+$string['modulenameplural'] = 'Kaltura Video Opdrachten';
+$string['modulename'] = 'Kaltura Video Opdracht';
+$string['modulename_help'] = 'De Kaltura Video Opdracht maakt het mogelijk dat een docent opdrachten kan maken waarbij studenten Kaltura Videos moeten uploaden en insturen. Docenten kunnen een cijfer of feedback geven aan de inzendingen.';
+$string['name'] = 'Naam';
+$string['availabledate'] = 'Beschikbaar vanaf';
+$string['duedate'] = 'Vervaldatum';
+$string['preventlate'] = 'Voorkomen late inzendingen';
+$string['allowdeleting'] = 'Opnieuw insturen toestaan';
+$string['allowdeleting_help'] = 'Als dit is toegestaan mogen studenten eerder ingestuurde opdrachten vervangen. De mogelijkheid om opdrachten in te leveren na de vervaldatum '.
+                                'kan worden ingesteld door \'Voorkomen late inzendingen\' instelling';
+$string['emailteachers'] = 'Email alerts naar docenten';
+$string['emailteachers_help'] = 'Als dit is toegestaan, krijgen docenten een email als studenten een opdracht insturen of updaten.
 
-Only teachers who are able to grade the particular assignment are notified. So, for example, if the course uses separate groups, '.
-'teachers restricted to particular groups won\'t receive notification about students in other groups.';
-$string['invalidid'] = 'Invalid ID';
-$string['pluginadministration'] = 'Kaltura Video Assignment';
-$string['addvideo'] = 'Add media submission';
-$string['submitvideo'] = 'Submit media';
-$string['replacevideo'] = 'Replace media';
+Alleen docenten die specifiek een bepaalde opdracht moeten nakijken krijgen een melding. Bijvoorbeeld als er in de cursus gebruik wordt gemaakt van gescheiden groepen, '.
+'docenten die gekoppeld zijn aan bepaalde groepen krijgen geen meldingen van studenten uit andere groepen.';
+$string['invalidid'] = 'Ongeldige ID';
+$string['pluginadministration'] = 'Kaltura Video Opdracht';
+$string['addvideo'] = 'Voeg een media inzending toe';
+$string['submitvideo'] = 'Stuur media in';
+$string['replacevideo'] = 'Vervang media';
 $string['previewvideo'] = 'Preview';
-$string['gradesubmission'] = 'Grade submissions';
-$string['numberofsubmissions'] = 'Number of submissions: {$a}';
-$string['assignmentexpired'] = 'Submission cancelled.  The assignment due date has passed';
-$string['assignmentsubmitted'] = 'Success, your assignment has been submitted';
-$string['emptyentryid'] = 'Video assignment was not submitted correctly.  Please try to resubmit.';
-$string['deleteallsubmissions'] = 'Delete all video submissions';
-$string['fullname'] = 'Name';
-$string['grade'] = 'Grade';
-$string['submissioncomment'] = 'Comment';
-$string['timemodified'] = 'Last modified (Submission)';
-$string['grademodified'] = 'Last modified (Grade)';
-$string['finalgrade'] = 'Final grade';
+$string['gradesubmission'] = 'Geef inzending een cijfer';
+$string['numberofsubmissions'] = 'Aantal inzendingen: {$a}';
+$string['assignmentexpired'] = 'Inzending is geannuleerd. De vervaldatum van de opdracht is voorbij';
+$string['assignmentsubmitted'] = 'Geslaagd, jouw opdracht is ingestuurd';
+$string['emptyentryid'] = 'Video opdracht is niet correct ingestuurd. Probeer opnieuw insturen.';
+$string['deleteallsubmissions'] = 'Verwijder alle video inzendingen';
+$string['fullname'] = 'Naam';
+$string['grade'] = 'Cijfer';
+$string['submissioncomment'] = 'Commentaar';
+$string['timemodified'] = 'Laatst gewijzigde (Inzending)';
+$string['grademodified'] = 'Laatst gewijzigde (Cijfer)';
+$string['finalgrade'] = 'Eindcijfer';
 $string['status'] = 'Status';
-$string['optionalsettings'] = 'Optional settings';
-$string['savepref'] = 'Save preferences';
-$string['all'] = 'All';
-$string['reqgrading'] = 'Require grading';
-$string['submitted'] = 'Submitted';
-$string['pagesize'] = 'Submissions shown per page';
-$string['pagesize_help'] = 'Set the number of assignment to display per page';
-$string['show'] = 'Show';
-$string['show_help'] = "If filter is set to 'All' then all student submissions will be displayed; even".
-                       "if the student didn't submit anything.  If set to ".
-                       "'Require grading' only submissions that has not been graded or submissions ".
-                       "that were updated by the student after it was graded will be shown.  If set to ".
-                       "'Submitted' only students who submitted a video assignment.";
-$string['quickgrade'] = 'Allow quick grade';
-$string['quickgrade_help'] = 'If enabled, multiple assignments can be graded on one page. Add grades and comments then click the "Save all my feedback" button to save all changes for that page.';
-$string['invalidperpage'] = 'Enter a number greater than zero';
-$string['savefeedback'] = 'Save feedback';
-$string['submission'] = 'Submission';
-$string['grades'] = 'Grades';
+$string['optionalsettings'] = 'Optionele instellingen';
+$string['savepref'] = 'Sla voorkeuren op';
+$string['all'] = 'Alles';
+$string['reqgrading'] = 'Cijfer vereist';
+$string['submitted'] = 'Ingestuurd';
+$string['pagesize'] = 'Inzendingen getoond per pagina';
+$string['pagesize_help'] = 'Stel het aantal getoonde opdrachten per pagina in';
+$string['show'] = 'Tonen';
+$string['show_help'] = "Als het filter is ingesteld op 'Alles' dan zullen alle studentinzendingen worden getoond; zelfs".
+                       " als de student niets heeft ingestuurd.  Ingesteld op ".
+                       "'Cijfer vereist' zijn alleen inzendingen die nog geen cijfer hebben of inzendingen ".
+                       "die zijn geupdate door de student nadat ze al een cijfer hebben gekregen zichtbaar.  Ingesteld op ".
+                       "'Ingestuurd' alleen studenten die een video opdracht hebben ingestuurd.";
+$string['quickgrade'] = 'Snel cijfer geven toestaan';
+$string['quickgrade_help'] = 'Als dit is ingesteld, kunnen meerdere opdrachten tegelijk een cijfer krijgen op een pagina. Voeg cijfers en commentaar toe, klik vervolgens op de "Al mijn feedback opslaan" knop om alle wijzigingen op die pagina op te slaan.';
+$string['invalidperpage'] = 'Voer een getal in groter dan nul';
+$string['savefeedback'] = 'Feedback opslaan';
+$string['submission'] = 'Inzending';
+$string['grades'] = 'Cijfers';
 $string['feedback'] = 'Feedback';
-$string['singlesubmissionheader'] = 'Grade submission';
-$string['singlegrade'] = 'Add help text';
-$string['singlegrade_help'] = 'Add help text';
-$string['late'] = '{$a} late';
-$string['early'] = '{$a} early';
-$string['lastgrade'] = 'Last grade';
-$string['savedchanges'] = 'Changed Saved';
-$string['save'] = 'Save Changes';
-$string['cancel'] = 'Close';
-$string['checkconversionstatus'] = 'Check video conversion status';
-$string['pluginname'] = 'Kaltura Video Assignment';
-$string['video_converting'] = 'The video is still converting.  Please check the status of the video at a later time.';
-$string['emailteachermail'] = '{$a->username} has updated their assignment submission
-for \'{$a->assignment}\' at {$a->timeupdated}
+$string['singlesubmissionheader'] = 'Geef inzending een cijfer';
+$string['singlegrade'] = 'Voeg een help tekst toe';
+$string['singlegrade_help'] = 'Voeg een helptekst toe';
+$string['late'] = '{$a} laat';
+$string['early'] = '{$a} vroeg';
+$string['lastgrade'] = 'Laatste cijfer';
+$string['savedchanges'] = 'veranderingen opgeslagen';
+$string['save'] = 'Opslaan veranderingen';
+$string['cancel'] = 'Afsluiten';
+$string['checkconversionstatus'] = 'Check status van videogesprek';
+$string['pluginname'] = 'Kaltura Video Opdracht';
+$string['video_converting'] = 'De video is nog aan het converteren. Check de status van de video op een later moment.';
+$string['emailteachermail'] = '{$a->username} heeft een ingezonden opdracht geupdate
+ \'{$a->assignment}\' op {$a->timeupdated}
 
-It is available here:
+Het is hier beschikbaar:
 
     {$a->url}';
-$string['emailteachermailhtml'] = '{$a->username} has updated their assignment submission
-for <i>\'{$a->assignment}\'  at {$a->timeupdated}</i><br /><br />
-It is <a href="{$a->url}">available on the web site</a>.';
-$string['messageprovider:kalvidassign_updates'] = 'Kaltura Video assignment notifications';
-$string['video_preview_header'] = 'Submission preview';
-$string['kalvidassign:gradesubmission'] = 'Grade video submissions';
-$string['kalvidassign:addinstance'] = 'Add a Kaltura Video Assignment';
-$string['kalvidassign:submit'] = 'Submit videos';
-$string['grade_video_not_cache'] = 'This video may still be in the process of converting...';
-$string['noenrolledstudents'] = 'No students are enrolled in the course';
-$string['group_filter'] = 'Group Filter';
+$string['emailteachermailhtml'] = '{$a->username} heeft een ingezonden opdracht geupdate
+ <i>\'{$a->assignment}\'  op {$a->timeupdated}</i><br /><br />
+Het is <a href="{$a->url}">beschikbaar op de website</a>.';
+$string['messageprovider:kalvidassign_updates'] = 'Kaltura Video Opdracht meldingen';
+$string['video_preview_header'] = 'Preview inzending';
+$string['kalvidassign:gradesubmission'] = 'Geef video inzendingen een cijfer';
+$string['kalvidassign:addinstance'] = 'Voeg een Kaltura Video Opdracht toe';
+$string['kalvidassign:submit'] = 'Videos insturen';
+$string['grade_video_not_cache'] = 'Deze video kan nog steeds aan het converteren zijn...';
+$string['noenrolledstudents'] = 'Er zijn geen studenten ingeschreven in de cursus.';
+$string['group_filter'] = 'Groep Filter';
 /* Commented out by Loomer to remove reference to screenrecorder
-$string['use_screen_recorder'] = 'Record screen';*/
-$string['use_kcw'] = 'Upload media or record from webcam';
-$string['scr_loading'] = 'Loading...';
-$string['reviewvideo'] = 'Review submission';
+$string['use_screen_recorder'] = 'Scherm opname';*/
+$string['use_kcw'] = 'Upload media of neem een video op';
+$string['scr_loading'] = 'Laden...';
+$string['reviewvideo'] = 'Inzending herzien';
 /* Commented out and new line added by Loomer to remove reference to screenrecorder
-$string['kalvidassign:screenrecorder'] = 'Screen recorder';
-$string['javanotenabled'] = 'Browser Java is disabled.  Please enable Java and refresh the page to use the screen recorder.';*/
-$string['javanotenabled'] = 'Browser Java is disabled.  Please enable Java and refresh the page.';
-$string['cannotdisplaythumbnail'] = 'Unable to display thumbnail';
+$string['kalvidassign:screenrecorder'] = 'Scherm opname';
+$string['javanotenabled'] = 'Browser Java is uitgeschakeld.  Schakel Java in en refresh de pagina om de Scherm opname te gebruiken.';*/
+$string['javanotenabled'] = 'Browser Java is uitgeschakeld.  Schakel Java in en refresh de pagina.';
+$string['cannotdisplaythumbnail'] = 'Niet mogelijk om thumbnail te tonen.';
