@@ -14,8 +14,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package mod
- * @subpackage kalvidres
+ * @package mod_kalvidres
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
@@ -24,12 +23,12 @@ if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
 }
 
-$module->version    = 2012121904;
+$module->version = 2012121906;
 $module->component  = 'mod_kalvidres';
-$module->release    = 'Kaltura release 3.0.96 (RL: 2.3.1.3)';
-$module->requires   = 2011033007;
+$module->release    = 'Kaltura release 3.0.97 (RL: 2.3.1.4)';
+$module->requires = 2012062500;
 $module->cron       = 0;
-
+$module->maturity = MATURITY_STABLE;
 $module->dependencies = array(
     'local_kaltura' => 2012121900
 );
