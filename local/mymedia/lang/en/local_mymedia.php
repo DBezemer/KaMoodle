@@ -79,7 +79,8 @@ $string['repository_enable'] = 'Please enable and configure the Kaltura reposito
 
 // Screen recording
 $string['screenrecorder'] = 'Record screen';
-$string['javanotenabled'] = 'Browser Java is disabled.  Please enable Java to use the screen recorder.';
+$string['checkingforjava'] = 'Checking for Java';
+$string['javanotenabled'] = 'Failed to detect Java, please make sure you have the latest version of Java installed and enabled and then try again.';
 
 // Sorting
 $string['sortby'] = 'Sort by';

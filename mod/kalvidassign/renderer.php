@@ -1197,10 +1197,10 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
         $slider_border = html_writer::tag('div', $progress_bar, $attr);
 
         $attr          = array('id' => 'loading_text');
-        $loading_text  = html_writer::tag('div', get_string('scr_loading', 'mod_kalvidassign'), $attr);
+        $loading_text  = html_writer::tag('div', get_string('checkingforjava', 'mod_kalvidassign'), $attr);
 
         $attr   = array('id' => 'progress_bar_container',
-                        'style' => 'width:100px; padding-left:10px; padding-right:10px; visibility: hidden');
+                        'style' => 'width:100%; padding-left:10px; padding-right:10px; visibility: hidden');
         $output = '<br /><center>' .html_writer::tag('span', $slider_border . $loading_text, $attr) . '</center>';
 
         return $output;
