@@ -492,5 +492,13 @@ M.local_mymedia.init_config = function (Y, panel_markup, dialog, conversion_scri
         }
 
     }, 'a');
+
+    var mymediasort = Y.one("#mymediasort");
+    var mymediasortoptions = mymediasort.get("options");
+    Y.on("change", function () {
+        var index = mymediasort.get("selectedIndex");
+        var url = mymediasortoptions.item(index).get("value");
+        window.location.href = url;
+     }, mymediasort);
     
 };
