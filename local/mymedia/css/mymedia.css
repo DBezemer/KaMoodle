@@ -149,3 +149,8 @@ div.mymedia.video.name {
 .yui3-tabview-panel #metadata, .yui3-tabview-panel #preview {
     height:450px; width:490px;
 }
+
+.mymedia .col_0 .paging {
+    display: inline;
+    margin-left: 2%;
+}
