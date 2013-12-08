@@ -1,5 +1,4 @@
 <?php
-
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -14,9 +13,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Kaltura video assignment grade preferences form
+ * Kaltura video presentation locallib
  *
- * @package    local_kaltura
+ * @package    mod
+ * @subpackage kalvidpres
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -24,8 +24,10 @@ if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
 }
 
-$plugin->version            = 2013041500;
-$plugin->component          = 'local_kaltura';
-$plugin->release            = 'Kaltura release 3.0.93 (RL: 2.4.1.0)';
-$plugin->requires           = 2012120300;
-$plugin->system_version     = 2.1; // Used to send information to Kaltura
+function kalvidpres_get_pres_properties() {
+    return array('width' => '780',
+                 'height' => '400',
+                 'uiconf_id' => local_kaltura_get_player_uiconf('presentation'),
+                 'video_title' => 'Video presentation');
+}
+

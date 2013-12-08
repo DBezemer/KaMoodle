@@ -47,13 +47,9 @@ class mod_kalvidres_mod_form extends moodleform_mod {
         $PAGE->requires->css('/mod/kalvidres/styles.css');
 
         $partner_id    = local_kaltura_get_partner_id();
-
-        /* Commented out by Loomer to remove screenrecorder reference
-        $sr_unconf_id  = local_kaltura_get_player_uiconf('mymedia_screen_recorder');*/
+        $sr_unconf_id  = local_kaltura_get_player_uiconf('mymedia_screen_recorder');
         $host = local_kaltura_get_host();
-
-        /* Commented out by Loomer to remove attempt to locate ksr since ksr is not present in Kaltura 5
-        $url = new moodle_url("{$host}/p/{$partner_id}/sp/{$partner_id}/ksr/uiconfId/{$sr_unconf_id}");*/
+        $url = new moodle_url("{$host}/p/{$partner_id}/sp/{$partner_id}/ksr/uiconfId/{$sr_unconf_id}");
         
         // This line is needed to avoid a PHP warning when the form is submitted
         // Because this value is set as the default for one of the formslib elements
@@ -62,9 +58,8 @@ class mod_kalvidres_mod_form extends moodleform_mod {
         // Check if connection to Kaltura can be established
         if ($connection) {
 
-            /* Commented out by Loomer to remove reference to ksr and screenrecorder
             $PAGE->requires->js($url, true);
-            $PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);*/
+            $PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);
     
             $PAGE->requires->js('/local/kaltura/js/jquery.js', true);
             $PAGE->requires->js('/local/kaltura/js/swfobject.js', true);
@@ -199,8 +194,6 @@ class mod_kalvidres_mod_form extends moodleform_mod {
 
         $radioarray = array();
         $attributes = array();
-
-        /* Commented out by Loomer to remove references to screenreader and ksr
         $enable_ksr = get_config(KALTURA_PLUGIN_NAME, 'enable_screen_recorder');
         $context    = null;
 
@@ -214,7 +207,7 @@ class mod_kalvidres_mod_form extends moodleform_mod {
 
         if ($enable_ksr && has_capability('mod/kalvidres:screenrecorder', $context)) {
             $radioarray[] =& $mform->createElement('radio', 'media_method', '', get_string('use_screen_recorder', 'kalvidres'), 1, $attributes);
-        }*/
+        }
 
         $radioarray[] =& $mform->createElement('radio', 'media_method', '', get_string('use_kcw', 'kalvidres'), 0, $attributes);
         $mform->addGroup($radioarray, 'radioar', get_string('media_method', 'kalvidres'), array('<br />'), false);

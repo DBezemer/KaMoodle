@@ -16,8 +16,7 @@
 /**
  * My Media version file
  *
- * @package    local
- * @subpackage mymedia
+ * @package    local_mymedia
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -25,12 +24,12 @@ if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
 }
 
-$plugin->version            = 2012121900;
+$plugin->version            = 2013041500;
 $plugin->component          = 'local_mymedia';
-$plugin->release            = 'Kaltura release 3.0.91';
-$plugin->requires           = 2011033007;
+$plugin->release            = 'Kaltura release 3.0.93 (RL: 2.4.1.0)';
+$plugin->requires           = 2012120300;
 
 $plugin->dependencies = array(
-    'local_kaltura' => 2012121900,
-    'repository_kaltura' => 2012121900
+    'local_kaltura' => 2013041500,
+    'repository_kaltura' => 2013041500
 );

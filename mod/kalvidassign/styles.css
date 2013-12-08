@@ -55,15 +55,3 @@
     font-weight: bold;
     right: 6px;
 }
-/*Following added by Loomer to provide space above Grade Submissions button*/
-#page-mod-kalvidassign-view .generalbox {
-    margin-bottom: 10px;
-}
-/*Following added by Loomer to hide the right blocks column even when editing is on*/
-#page-mod-kalvidassign-view #region-post, #page-mod-kalvidassign-grade_submissions #region-post {
-    display: none;
-}
-/*Following added by Loomer to center the Save preferences button*/
-#page-mod-kalvidassign-grade_submissions .mform .fitem .felement {
-    width: 67%;
-}

@@ -14,18 +14,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Kaltura video assignment grade preferences form
+ * Kaltura video resource logs file
  *
- * @package    local_kaltura
+ * @package    mod
+ * @subpackage kalvidres
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-if (!defined('MOODLE_INTERNAL')) {
-    die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
-}
 
-$plugin->version            = 2013041500;
-$plugin->component          = 'local_kaltura';
-$plugin->release            = 'Kaltura release 3.0.93 (RL: 2.4.1.0)';
-$plugin->requires           = 2012120300;
-$plugin->system_version     = 2.1; // Used to send information to Kaltura
+defined('MOODLE_INTERNAL') || die();
+
+global $DB;
+
+$logs = array(
+    array('module'=>'kalvidpres', 'action'=>'view', 'mtable'=>'kalvidpres', 'field'=>'name'),
+
+);
