@@ -128,18 +128,15 @@ class local_mymedia_renderer extends plugin_renderer_base {
             $upload = $this->create_upload_markup();
         }
  
-        /* this if block was commented out by Loomer as a part of disabling attempts to use the screenrecorder object
         if ($enable_ksr && has_capability('local/mymedia:screenrecorder', $context, $USER)) {
             $screenrec = $this->create_screenrecorder_markup($partner_id, $login_session);
-        }*/
+        }
 
         if (has_capability('local/mymedia:search', $context, $USER)) {
             $simple_search = $this->create_search_markup();
         }
 
-        /* the following line was edited by Loomer to help eliminate use of the screenrecorder object
-        $output .= $upload . '&nbsp;&nbsp;' . $screenrec . $simple_search;*/
-        $output .= $upload . '&nbsp;&nbsp;' . $simple_search;
+        $output .= $upload . '&nbsp;&nbsp;' . $screenrec . $simple_search;
 
         $output .= html_writer::end_tag('td');
 
@@ -834,7 +831,6 @@ class local_mymedia_renderer extends plugin_renderer_base {
         return $output;
     }
 
-    /* The following block was commented out by Loomer to help eliminate attempts to use the screenrecord object
     public function create_screenrecorder_markup($partner_id, $login_session) {
 
         $attr   = array('id' => 'screenrecorder_btn_container',
@@ -876,5 +872,5 @@ class local_mymedia_renderer extends plugin_renderer_base {
 
         return $output;
 
-    }*/
+    }
 }

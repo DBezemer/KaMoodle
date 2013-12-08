@@ -581,6 +581,11 @@ if ($version) { ///////////////////////// MOODLE 2.2 OR LESS ///////////////////
             return $source;
         }
 
+        /**
+         * This is a dummy function created as a workaround for ELIS-8326
+         * @return void
+         */
+        function category_tree() {}
     }
 } else {                                              ///////////////////////// MOODLE 2.3 OR GREATER ///////////////////////////////
 
@@ -1149,6 +1154,10 @@ if ($version) { ///////////////////////// MOODLE 2.2 OR LESS ///////////////////
             return $source;
         }
 
+        /**
+         * This is a dummy function created as a workaround for ELIS-8326
+         * @return void
+         */
+        function category_tree() {}
     }
-
 }

@@ -3,15 +3,6 @@ M.local_kaltura = {};
 M.local_kaltura.loading_panel = {};
 
 M.local_kaltura.show_loading = function () {
-
-    // the following line was added by Loomer to enable YUI 2in3 in this function
-    var Y = M.local_kaltura.Y;
-      // begin addition by Loomer to enable YUI 2in3 within this module
-  YUI().use('base', 'dom', 'node', 'event-delegate', 'yui2-container', 'yui2-animation', 'yui2-dragdrop','io-base', 'collection', 'tabview', 'json-parse', function(Y) {
-    Y.one('body').addClass('yui-skin-sam');
-    var YAHOO = Y.YUI2;
-    // end addition by Loomer to enable YUI 2in3 within this block, except note the addition of the block closing below
-
     loading_panel = new YAHOO.widget.Panel("wait", {width:"240px",  
                                                     fixedcenter:true,  
                                                     close:false,  
@@ -22,14 +13,10 @@ M.local_kaltura.show_loading = function () {
                                                    });
 
     loading_panel.setHeader("Loading, please wait..."); 
-    loading_panel.setBody('<img src="//l.yimg.com/a/i/us/per/gr/gp/rel_interstitial_loading.gif" />');
+    loading_panel.setBody('<img src="http://l.yimg.com/a/i/us/per/gr/gp/rel_interstitial_loading.gif" />');
     loading_panel.render();
 
     loading_panel.show();
-
-  // following line added by Loomer to close the YUI 2i3 sandbox function  
-  });
-
 }
 
 M.local_kaltura.hide_loading = function () {
@@ -70,6 +57,82 @@ M.local_kaltura.get_thumbnail_url = function(entry_id) {
 
     });
     
+
+};
+
+/*
+ * Perform course searching with auto-complete
+ */
+M.local_kaltura.search_course = function() {
+
+    YUI({filter: 'raw'}).use("autocomplete", function(Y) {
+        var search_txt = Y.one('#kaltura_search_txt');
+        var kaltura_search = document.getElementById("kaltura_search_txt");
+        var search_btn = Y.one('#kaltura_search_btn');
+        var clear_btn = Y.one('#kaltura_clear_btn');
+
+        search_txt.plug(Y.Plugin.AutoComplete, {
+            resultTextLocator: 'fullname',
+            enableCache: false,
+            minQueryLength: 2,
+            resultListLocator: 'data.courses',
+            resultFormatter: function (query, results) {
+                return Y.Array.map(results, function(result) {
+                    var course = result.raw;
+                    if (course.shortname) {
+                        return course.fullname + " (" + course.shortname + ")";
+                    }
+                    return course.fullname;
+                });
+            },
+            source: 'courses.php?query={query}&action=autocomplete',
+            on : {
+                select : function(e) {
+                    Y.io('courses.php', {
+                        method: 'POST',
+                        data: {course_id : e.result.raw.id, action: 'select_course'},
+                        on: {
+                            success: function(id, result) {
+                                var data = Y.JSON.parse(result.responseText);
+                                if (data.failure && data.failure == true) {
+                                    alert(data.message);
+                                } else {
+                                    document.getElementById('resourceobject').src = decodeURIComponent(data.url);
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        kaltura_search.onkeypress = function(e) {
+            // Enter is pressed
+            if (e.keyCode === 13) {
+                var query = search_txt.get('value');
+                // Don't accept an empty search string
+                if (!(/^\s*$/.test(query))) {
+                    document.getElementById('resourceobject').src = 'courses.php?action=search&query='+query;
+                    // Lose focus of the auto-suggest menu
+                    kaltura_search.blur();
+                }
+            }
+        }
+
+        search_btn.on('click', function(e) {
+            var query = search_txt.get('value');
+            // Don't accept an empty search string
+            if (!(/^\s*$/.test(query))) {
+                document.getElementById('resourceobject').src = 'courses.php?action=search&query='+query;
+                kaltura_search.blur();
+            }
+        });
+
+        clear_btn.on('click', function(e) {
+            search_txt.set("value", "");
+        });
+
+    });
 
 };
 
@@ -367,7 +430,6 @@ M.local_kaltura.init_config = function (Y, test_script) {
         
         }); 
 
-        /* Commented out by Loomer to remove references to screenrecorder
         // Add a 'change' event to the My Media KSR selection drop down
         var mymedia_ksr = Y.one('#id_s_local_kaltura_mymedia_screen_recorder');
 
@@ -398,7 +460,7 @@ M.local_kaltura.init_config = function (Y, test_script) {
                 mymedia_custom_ksr.disabled = true;
             }
         
-        }); */
+        }); 
 
         // Add a 'change' event to the Kaltura filter player selection drop down
         var kaltura_filter = Y.one('#id_s_local_kaltura_player_filter');
@@ -440,14 +502,6 @@ M.local_kaltura.init_config = function (Y, test_script) {
 M.local_kaltura.video_assignment = function (Y, conversion_script, panel_markup,
                                              video_properties, kcw_code, kaltura_session,
                                              kaltura_partner_id, script_location) {
-
-  // begin addition by Loomer to enable YUI 2in3 within this module
-  M.local_kaltura.Y = Y;
-  YUI().use('base', 'dom', 'node', 'event-delegate', 'yui2-container', 'yui2-animation', 'yui2-dragdrop','io-base', 'collection', 'tabview', 'json-parse', function(Y) {
-    Y.one('body').addClass('yui-skin-sam');
-    var YAHOO = Y.YUI2;
-    // end addition by Loomer to enable YUI 2in3 within this block, except note the addition of the block closing below
-
 
     // Adding makup to the body of the page for the kalvidassign
     if (null !== Y.one("#page-mod-kalvidassign-view")) { // Body tag for kalvidassign
@@ -494,17 +548,14 @@ M.local_kaltura.video_assignment = function (Y, conversion_script, panel_markup,
 
     // Panel show callback.  Add CSS styles to the main div container
     // to raise it above the rest of the elments on the page
-    
     function widget_panel_callback(e, widget_panel) {
         
         // Check if the screen recording options was checked 
         if (Y.one("#id_media_method_0").get('checked')) {
             widget_panel.setBody(kcw_code);
             widget_panel.show();
-        } 
-        /* Commented out by Loomer to remove screenrecorder references
-        else {
-            
+        } else {
+        	
             Y.one("#progress_bar_container").setStyle("visibility", "visible");
             Y.one("#slider_border").setStyle("borderStyle", "none");
 
@@ -514,9 +565,9 @@ M.local_kaltura.video_assignment = function (Y, conversion_script, panel_markup,
             kalturaScreenRecord.startKsr(kaltura_partner_id, kaltura_session, 'false');
             
             var java_disabled = function (message) {
-                Y.one('#id_media_method_0').set("checked", true);
-                Y.one('#id_media_method_1').set("disabled", true);
-                
+            	Y.one('#id_media_method_0').set("checked", true);
+            	Y.one('#id_media_method_1').set("disabled", true);
+            	
                 var progress_bar = document.getElementById('progress_bar_container');
                 if (null != progress_bar) {
                     progress_bar.style.visibility = 'hidden';
@@ -527,7 +578,7 @@ M.local_kaltura.video_assignment = function (Y, conversion_script, panel_markup,
             
             kalturaScreenRecord.setDetectResultErrorCustomCallback(java_disabled);
 
-        }*/
+        }
         
     }
 
@@ -572,7 +623,7 @@ M.local_kaltura.video_assignment = function (Y, conversion_script, panel_markup,
                                                    ); 
 
         loading_panel.setHeader("Loading, please wait..."); 
-        loading_panel.setBody('<img src="//l.yimg.com/a/i/us/per/gr/gp/rel_interstitial_loading.gif" />');
+        loading_panel.setBody('<img src="http://l.yimg.com/a/i/us/per/gr/gp/rel_interstitial_loading.gif" />');
         loading_panel.render();
 
         
@@ -681,20 +732,10 @@ M.local_kaltura.video_assignment = function (Y, conversion_script, panel_markup,
         // the thumbnail
         M.local_kaltura.set_dataroot(script_location);
     }
-  // following line added by Loomer to close the YUI 2i3 sandbox function  
-  });
-
+    
 };
 
 M.local_kaltura.video_asignment_submission_view = function (Y, conversion_script, panel_markup, uiconf_id) {
-
-  // begin addition by Loomer to enable YUI 2in3 within this module
-  M.local_kaltura.Y = Y;
-  YUI().use('base', 'dom', 'node', 'event-delegate', 'yui2-container', 'yui2-animation', 'yui2-dragdrop','io-base', 'collection', 'tabview', 'json-parse', function(Y) {
-    Y.one('body').addClass('yui-skin-sam');
-    var YAHOO = Y.YUI2;
-    // end addition by Loomer to enable YUI 2in3 within this block, except note the addition of the block closing below
-
 
     // Adding makup to the body of the page for the video assignment - grade submissions page
     if (null !== Y.one("#page-mod-kalvidassign-grade_submissions")) { // Body tag for grade submissions page
@@ -717,7 +758,7 @@ M.local_kaltura.video_asignment_submission_view = function (Y, conversion_script
                                                ); 
 
     loading_panel.setHeader("Loading, please wait..."); 
-    loading_panel.setBody('<img src="//l.yimg.com/a/i/us/per/gr/gp/rel_interstitial_loading.gif" />');
+    loading_panel.setBody('<img src="http://l.yimg.com/a/i/us/per/gr/gp/rel_interstitial_loading.gif" />');
     loading_panel.render();
 
 
@@ -800,22 +841,11 @@ M.local_kaltura.video_asignment_submission_view = function (Y, conversion_script
     // Subscribe all image nodes to click event
     Y.on("click", image_node_click_callback, image_nodes_array);
 
-  // following line added by Loomer to close the YUI 2i3 sandbox function  
-  });
-
 };
 
 M.local_kaltura.video_resource = function (Y, conversion_script, 
                                            panel_markup, kcw_code, default_player_uiconf,
                                            kaltura_session, kaltura_partner_id, progress_bar_markup) {
-
-  // begin addition by Loomer to enable YUI 2in3 within this module
-  M.local_kaltura.Y = Y;
-  YUI().use('base', 'dom', 'node', 'event-delegate', 'yui2-container', 'yui2-animation', 'yui2-dragdrop','io-base', 'collection', 'tabview', 'json-parse',  function(Y) {
-    Y.one('body').addClass('yui-skin-sam');
-    var YAHOO = Y.YUI2;
-    // end addition by Loomer to enable YUI 2in3 within this block, except note the addition of the block closing below
-
 
     var kcw_panel               = null;
     var entry_element           = null;
@@ -907,7 +937,6 @@ M.local_kaltura.video_resource = function (Y, conversion_script,
     widget_panel.render();
 
     // Panel show callback
-
     function widget_panel_callback(e, widget_panel) {
 
         // Check if the screen recording options was checked 
@@ -926,10 +955,7 @@ M.local_kaltura.video_resource = function (Y, conversion_script,
             widget_panel.setBody(kcw_code);
             widget_panel.show();
 
-        } 
-
-        /* Commented out by Loomer to remove references to screenrecorder
-        else {
+        } else {
 
             Y.one("#progress_bar_container").setStyle("visibility", "visible");
             Y.one("#slider_border").setStyle("borderStyle", "none");
@@ -939,20 +965,20 @@ M.local_kaltura.video_resource = function (Y, conversion_script,
             kalturaScreenRecord.setDetectTextjavaNotDetected(M.util.get_string("javanotenabled", "kalvidres"));
             
             var java_disabled = function (message) {
-                Y.one('#id_media_method_0').set("checked", true);
-                Y.one('#id_media_method_1').set("disabled", true);
+            	Y.one('#id_media_method_0').set("checked", true);
+            	Y.one('#id_media_method_1').set("disabled", true);
 
-                var progress_bar = document.getElementById('progress_bar_container');
-                if (null != progress_bar) {
-                    progress_bar.style.visibility = 'hidden';
-                }
-                
-                alert(M.util.get_string("javanotenabled", "kalvidres"));
+            	var progress_bar = document.getElementById('progress_bar_container');
+            	if (null != progress_bar) {
+            	    progress_bar.style.visibility = 'hidden';
+            	}
+            	
+            	alert(M.util.get_string("javanotenabled", "kalvidres"));
             }
             
             kalturaScreenRecord.setDetectResultErrorCustomCallback(java_disabled);
 
-        }*/
+        }
     }
 
     kcw_panel.on("click", widget_panel_callback, null, widget_panel);
@@ -1193,7 +1219,7 @@ M.local_kaltura.video_resource = function (Y, conversion_script,
                                                ); 
 
     loading_panel.setHeader("Loading, please wait..."); 
-    loading_panel.setBody('<img src="//l.yimg.com/a/i/us/per/gr/gp/rel_interstitial_loading.gif" />');
+    loading_panel.setBody('<img src="http://l.yimg.com/a/i/us/per/gr/gp/rel_interstitial_loading.gif" />');
     loading_panel.render();
 
     // Create preview panel
@@ -1318,23 +1344,12 @@ M.local_kaltura.video_resource = function (Y, conversion_script,
     // the thumbnail
     M.local_kaltura.set_dataroot(conversion_script);
 
-  // following line added by Loomer to close the YUI 2i3 sandbox function  
-  });
-
 };
 
 M.local_kaltura.video_presentation = function (Y, conversion_script, 
                                                panel_markup, uploader_url, flashvars, 
                                                kcw_code, kaltura_session, kaltura_partner_id,
                                                progress_bar_markup) {
-
-  // begin addition by Loomer to enable YUI 2in3 within this module
-  M.local_kaltura.Y = Y;
-  YUI().use('base', 'dom', 'node', 'event-delegate', 'yui2-container', 'yui2-animation', 'yui2-dragdrop','io-base', 'collection', 'tabview', 'json-parse', function(Y) {
-    Y.one('body').addClass('yui-skin-sam');
-    var YAHOO = Y.YUI2;
-    // end addition by Loomer to enable YUI 2in3 within this block, except note the addition of the block closing below
-
 
     // Adding makup to the body of the page for the kalvidpres
     if (null !== Y.one("#page-mod-kalvidpres-mod")) {
@@ -1397,7 +1412,6 @@ M.local_kaltura.video_presentation = function (Y, conversion_script,
     widget_panel.render();
 
     // Panel show callback
-
     function widget_panel_callback(e, widget_panel) {
 
         // Check if the screen recording options was checked 
@@ -1414,11 +1428,8 @@ M.local_kaltura.video_presentation = function (Y, conversion_script,
             widget_panel.setBody(kcw_code);
             widget_panel.show();
 
-        } 
-
-        /* Commented out by Loomer to remove references to screenrecorder
-        else {
-            
+        } else {
+        	
             Y.one("#progress_bar_container").setStyle("visibility", "visible");
             Y.one("#slider_border").setStyle("borderStyle", "none");
 
@@ -1428,20 +1439,20 @@ M.local_kaltura.video_presentation = function (Y, conversion_script,
             kalturaScreenRecord.setDetectTextjavaNotDetected(M.util.get_string("javanotenabled", "kalvidpres"));
             
             var java_disabled = function (message) {
-                Y.one('#id_media_method_0').set("checked", true);
-                Y.one('#id_media_method_1').set("disabled", true);
+            	Y.one('#id_media_method_0').set("checked", true);
+            	Y.one('#id_media_method_1').set("disabled", true);
 
-                var progress_bar = document.getElementById('progress_bar_container');
+            	var progress_bar = document.getElementById('progress_bar_container');
                 if (null != progress_bar) {
                     progress_bar.style.visibility = 'hidden';
                 }
 
-                alert(M.util.get_string("javanotenabled", "kalvidpres"));
+            	alert(M.util.get_string("javanotenabled", "kalvidpres"));
             }
             
             kalturaScreenRecord.setDetectResultErrorCustomCallback(java_disabled);
 
-        }*/
+        }
     }
     
     kcw_panel.on("click", widget_panel_callback, null, widget_panel);
@@ -1471,7 +1482,7 @@ M.local_kaltura.video_presentation = function (Y, conversion_script,
                                                ); 
 
     loading_panel.setHeader("Loading, please wait..."); 
-    loading_panel.setBody('<img src="//l.yimg.com/a/i/us/per/gr/gp/rel_interstitial_loading.gif" />');
+    loading_panel.setBody('<img src="http://l.yimg.com/a/i/us/per/gr/gp/rel_interstitial_loading.gif" />');
     loading_panel.render();
 
     // YUI IO context and callbacks.  Also create preview panel
@@ -1715,21 +1726,10 @@ M.local_kaltura.video_presentation = function (Y, conversion_script,
     // the thumbnail
     M.local_kaltura.set_dataroot(conversion_script);
 
-  // following line added by Loomer to close the YUI 2i3 sandbox function  
-  });
-
 };
 
 M.local_kaltura.video_presentation_view = function (Y, conversion_script, 
                                                     panel_markup, video_properties, admin_mode) {
-
-  // begin addition by Loomer to enable YUI 2in3 within this module
-  M.local_kaltura.Y = Y;
-  YUI().use('base', 'dom', 'node', 'event-delegate', 'yui2-container', 'yui2-animation', 'yui2-dragdrop','io-base', 'collection', 'tabview', 'json-parse',  function(Y) {
-    Y.one('body').addClass('yui-skin-sam');
-    var YAHOO = Y.YUI2;
-    // end addition by Loomer to enable YUI 2in3 within this block, except note the addition of the block closing below
-
 
     // Adding makup to the body of the page for the kalvidpres view
     if (null !== Y.one("#page-mod-kalvidpres-view")) {
@@ -1811,8 +1811,5 @@ M.local_kaltura.video_presentation_view = function (Y, conversion_script,
 
             
     Y.on('io:complete', check_conversion_status, Y);
-
-  // following line added by Loomer to close the YUI 2i3 sandbox function  
-  });
 
 };

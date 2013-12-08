@@ -504,8 +504,6 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
 
         $html .= html_writer::start_tag('table');
 
-//$context  = get_context_instance(CONTEXT_MODULE, $cm->id);
-        /* Commented out by Loomer to remove reference to screenrecorder
         // Check of KSR is enabled via config or capability
         $enable_ksr = get_config(KALTURA_PLUGIN_NAME, 'enable_screen_recorder');
         $context    = get_context_instance(CONTEXT_MODULE, $cm->id);
@@ -527,7 +525,7 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
             $html .= html_writer::tag('label', get_string('use_screen_recorder', 'kalvidassign'), $attr);
             $html .= html_writer::end_tag('td');
             $html .= html_writer::end_tag('tr');
-        }*/
+        }
 
         $html .= html_writer::start_tag('tr');
         $html .= html_writer::start_tag('td');
@@ -620,8 +618,6 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
         // Add media type radio buttons
         $html .= html_writer::start_tag('table');
 
-//$context  = get_context_instance(CONTEXT_MODULE, $cm->id);
-        /* Commented out by Loomer to remove reference to screenrecorder
         // Check of KSR is enabled via config or capability
         $enable_ksr = get_config(KALTURA_PLUGIN_NAME, 'enable_screen_recorder');
         $context    = get_context_instance(CONTEXT_MODULE, $cm->id);
@@ -648,7 +644,7 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
             $html .= html_writer::tag('label', get_string('use_screen_recorder', 'kalvidassign'), $attr);
             $html .= html_writer::end_tag('td');
             $html .= html_writer::end_tag('tr');
-        }*/
+        }
 
 
         $html .= html_writer::start_tag('tr');

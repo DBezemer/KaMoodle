@@ -1,20 +1,12 @@
 M.local_mymedia = {};
 
-// note that the variable dialog below was changed to dialog0 in line 4 and line 16 to avoid a conflict with the declaration of 
-//a second variable named dialog which had been implemented previously in line 21...how did this code ever work?
-M.local_mymedia.init_config = function (Y, panel_markup, dialog0, conversion_script, save_video_script,
+M.local_mymedia.init_config = function (Y, panel_markup, dialog, conversion_script, save_video_script,
                                         uiconf_id, kcw_panel_markup, kcw_markup, loading_panel, edit_meta, 
                                         edit_share_course, edit_share_site, kaltura_partner_id, kaltura_session) {
-
-  // the following 4 lines and the closing }); below added to enable YUI 2in3 within this module to make it compatible with Moodle 2.4
-  M.local_mymedia.Y = Y;
-  YUI().use('base', 'dom', 'node', 'event-delegate', 'yui2-container', 'yui2-animation', 'yui2-dragdrop','io-base', 'collection', 'tabview', 'json-parse', function(Y) {
-    Y.one('body').addClass('yui-skin-sam');
-    var YAHOO = Y.YUI2;
-
+    
     var body_node = Y.one("#page-mymedia-index");
     
-    body_node.append(dialog0);
+    body_node.append(dialog);
     body_node.append(kcw_panel_markup);
     
     var kcw_panel = Y.one("#upload_btn");
@@ -31,7 +23,7 @@ M.local_mymedia.init_config = function (Y, panel_markup, dialog0, conversion_scr
         visible: false,
         draggable: true,
         iframe: true,
-        close: true,
+        close: false,
         context: ["region-main", "tl", "tl", ["beforeShow", "windowResize"], [250, 20]]
     });
     
@@ -51,18 +43,18 @@ M.local_mymedia.init_config = function (Y, panel_markup, dialog0, conversion_scr
                                                                    zIndex: 100,
                                                                    context: ["region-main", "tl", "tl", ["beforeShow", "windowResize"], [80, 50]]
                                                                    });
-        
         widget_panel.render();
-        
+    
         // Panel show callback.  Add CSS styles to the main div container
-        // to raise it above the rest of the elments on the page
+        // to rais it above the rest of the elments on the page
         function widget_panel_callback(e, widget_panel) {
             widget_panel.setBody(kcw_markup);
-            widget_panel.show();            
+            widget_panel.show();
+            
         }
 
         kcw_panel.on("click", widget_panel_callback, null, widget_panel);
-
+    
         // Add a click event handler to the notifications DIV
         // This is used to close the panel window when the user clicks
         // on the X in the KCW widget
@@ -94,9 +86,8 @@ M.local_mymedia.init_config = function (Y, panel_markup, dialog0, conversion_scr
         }
     
         // Subscribe to the on click event to close the widget_panel
-        if(null != kcw_notification) {
-            kcw_notification.on("click", kcw_notification_click);
-        }
+        kcw_notification.on("click", kcw_notification_click);
+        
     }
 
 
@@ -121,7 +112,7 @@ M.local_mymedia.init_config = function (Y, panel_markup, dialog0, conversion_scr
                                                ); 
 
     loading_panel.setHeader("Loading, please wait..."); 
-    loading_panel.setBody('<img src="//l.yimg.com/a/i/us/per/gr/gp/rel_interstitial_loading.gif" />');
+    loading_panel.setBody('<img src="http://l.yimg.com/a/i/us/per/gr/gp/rel_interstitial_loading.gif" />');
     loading_panel.render();
 
     // Create preview panel
@@ -501,8 +492,5 @@ M.local_mymedia.init_config = function (Y, panel_markup, dialog0, conversion_scr
         }
 
     }, 'a');
-  // following line added to close block - see above at line 7
-  });
-
+    
 };
-
