@@ -158,7 +158,7 @@ if ($enabled) {
         } else {
             add_to_log(SITEID, 'local_mymedia', 'View - no videos', '', 'no videos');
 
-            echo $renderer->create_options_table_upper($page);
+            echo $renderer->create_options_table_upper($page, $partner_id, $login_session);
 
             echo '<center>'. get_string('no_videos', 'local_mymedia') . '</center>';
 
