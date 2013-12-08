@@ -22,9 +22,9 @@ if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
 }
 
-$module->version    = 2013041500;
+$module->version    = 2013041502;
 $module->component  = 'mod_kalvidassign';
-$module->release    = 'Kaltura release 3.0.93 (RL: 2.4.1.0)';
+$module->release    = 'Kaltura release 3.0.95 (RL: 2.4.1.2)';
 $module->requires   = 2012120300;
 $module->cron       = 0;
 
