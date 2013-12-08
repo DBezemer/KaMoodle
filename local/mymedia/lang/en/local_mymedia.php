@@ -80,3 +80,10 @@ $string['repository_enable'] = 'Please enable and configure the Kaltura reposito
 // Screen recording
 $string['screenrecorder'] = 'Record screen';
 $string['javanotenabled'] = 'Browser Java is disabled.  Please enable Java to use the screen recorder.';
+
+// Sorting
+$string['sortby'] = 'Sort by';
+$string['mostrecent'] = 'Most recent';
+$string['oldest'] = 'Oldest';
+$string['medianameasc'] = 'Media name (ascending)';
+$string['medianamedesc'] = 'Media name (descending)';

@@ -101,6 +101,48 @@ class local_mymedia_renderer extends plugin_renderer_base {
         echo $output;
     }
 
+    /**
+     * This function creates HTML markup used to sort the video listing.
+     *
+     * @return HTML Markup for sorting pulldown.
+     */
+    public function create_sort_option() {
+        global $CFG, $SESSION;
+
+        $recent = null;
+        $old = null;
+        $nameasc = null;
+        $namedesc = null;
+        $sorturl = $CFG->wwwroot.'/local/mymedia/mymedia.php?sort=';
+
+        if (isset($SESSION->mymediasort) && !empty($SESSION->mymediasort)) {
+            $sort = $SESSION->mymediasort;
+            if ($sort == 'recent') {
+                $recent = "selected";
+            } else if ($sort == 'old') {
+                $old = "selected";
+            } else if ($sort == 'name_asc') {
+                $nameasc = "selected";
+            } else if ($sort == 'name_desc') {
+                $namedesc = "selected";
+            } else {
+                $recent = "selected";
+            }
+        } else {
+            $recent = "selected";
+        }
+
+        $sort = html_writer::tag('label', get_string('sortby', 'local_mymedia').':');
+        $sort .= html_writer::start_tag('select', array('id' => 'mymediasort'));
+        $sort .= html_writer::tag('option', get_string('mostrecent', 'local_mymedia'), array('value' => $sorturl.'recent', 'selected' => $recent));
+        $sort .= html_writer::tag('option', get_string('oldest', 'local_mymedia'), array('value' => $sorturl.'old', 'selected' => $old));
+        $sort .= html_writer::tag('option', get_string('medianameasc', 'local_mymedia'), array('value' => $sorturl.'name_asc', 'selected' => $nameasc));
+        $sort .= html_writer::tag('option', get_string('medianamedesc', 'local_mymedia'), array('value' => $sorturl.'name_desc', 'selected' => $namedesc));
+        $sort .= html_writer::end_tag('select');
+
+        return $sort;
+    }
+
     public function create_options_table_upper($page, $partner_id = '', $login_session = '') {
         global $USER;
 
@@ -150,6 +192,7 @@ class local_mymedia_renderer extends plugin_renderer_base {
         $output .= html_writer::start_tag('td', $attr);
 
         if (!empty($page)) {
+            $output .= $this->create_sort_option();
             $output .= $page;
         }
 

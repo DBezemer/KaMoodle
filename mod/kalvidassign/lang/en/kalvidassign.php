@@ -104,3 +104,4 @@ $string['cannotdisplaythumbnail'] = 'Unable to display thumbnail';
 $string['noassignments'] = 'No Kaltura video assignments found in the course';
 $string['submitted'] = 'Submitted';
 $string['nosubmission'] = 'No submission';
+$string['nosubmissions'] = 'No submissions';
