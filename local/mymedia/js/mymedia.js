@@ -27,7 +27,7 @@ M.local_mymedia.init_config = function (Y, panel_markup, dialog, conversion_scri
         context: ["region-main", "tl", "tl", ["beforeShow", "windowResize"], [250, 20]]
     });
     
-    dialog.render("maincontent");
+    dialog.render("page-mymedia-index");
 
     if (null !== kcw_panel) {
 
