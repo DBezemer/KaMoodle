@@ -16,8 +16,7 @@
 /**
  * Kaltura video assignment grade preferences form
  *
- * @package    local
- * @subpackage kaltura
+ * @package    moodle-local_kaltura
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -36,8 +35,7 @@ define('KALTURA_PLAYER_PLAYERREGULARLIGHT',             6709421); // KDP light
 define('KALTURA_PLAYER_PLAYERVIDEOPRESENTATION',        4860481);
 define('KALTURA_FILE_UPLAODER',                         6386311); // KSU
 define('KALTURA_PLAYER_MYMEDIA_UPLOADER',               8464961); // KCW
-/* Commented out by Loomer to remove reference to screenrecorder
-define('KALTURA_PLAYER_MYMEDIA_SCREEN_RECORDER',        9780761); // KSR*/
+define('KALTURA_PLAYER_MYMEDIA_SCREEN_RECORDER',        9780761); // KSR
 define('KALTURA_PLAYER_KSU',                            1002613); // KSU
 
 define('KALTURA_FILTER_VIDEO_WIDTH', 400);
@@ -133,14 +131,15 @@ function local_kaltura_uninitialize_account() {
 /**
  * Send initializations information to the Kaltura server
  *
- * @param string - kaltura session string
- * @return nothing
+ * @param string $session The Kaltura session string
  */
 function local_kaltura_send_initialization($session) {
 
     global $CFG;
 
-    require_once(dirname(dirname(dirname(__FILE__))) . '/local/kaltura/version.php');
+    $plugin = new stdClass();
+    // We always want the version information even if it was already loaded by something else
+    include(dirname(__FILE__).'/version.php');
 
     $ch = curl_init();
 
@@ -228,6 +227,13 @@ function local_kaltura_login($admin = false, $privileges = '', $expiry = 10800, 
 
 }
 
+/**
+ * Generate a weak Kaltura session
+ *
+ * @param int $courseid The id of the course
+ * @param string $course_name The name of the course
+ * @return string|bool The session ID string value or false on error
+ */
 function local_kaltura_generate_weak_kaltura_session($courseid, $course_name) {
     global $CFG, $USER, $DB;
 
@@ -264,8 +270,8 @@ function local_kaltura_generate_weak_kaltura_session($courseid, $course_name) {
     if (isloggedin()) {
         $username = $USER->username;
     }
-//TOOD: LOOK INTO THE CALLING OF A NON OBJECT
-//var_dump($kal_category);
+    // TODO: LOOK INTO THE CALLING OF A NON OBJECT
+    // var_dump($kal_category);
 
     $privilege = array(
         'app' => 'moodle',
@@ -498,8 +504,7 @@ function local_kaltura_get_player_uiconf($type = 'player') {
         case 'pres_uploader':
         case 'presentation':
         case 'mymedia_uploader':
-        /* Commented out by Loomer to remover reference to screenrecorder
-        case 'mymedia_screen_recorder':*/
+        case 'mymedia_screen_recorder':
         case 'assign_uploader':
         case 'player_filter':
         case 'simple_uploader';
@@ -1823,87 +1828,32 @@ class kaltura_connection {
     private static $timeout     = 0;
     private static $timestarted = 0;
 
-    public function __construct($timeout = KALTURA_SESSION_LENGTH) {
-
-        global $SESSION;
-
-        // Retrieve session data about connection
-        if (empty(self::$connection) && isset($SESSION->kaltura_con)) {
-
-            self::$connection   = unserialize($SESSION->kaltura_con);
-            self::$timeout      = $SESSION->kaltura_con_timeout;
-            self::$timestarted  = $SESSION->kaltura_con_timestarted;
-        }
-
-        if (empty(self::$connection)) {
-
-            // Login if connection object is empty
-            self::$connection = local_kaltura_login(true, '', $timeout);
-
-            // Set session data
-            if (!empty(self::$connection)) {
-                self::$timestarted    = time();
-                self::$timeout        = $timeout;
-            }
-        }
-    }
-
     /**
-     * Returns true if the connection is active.  Otherwise fase
+     * Constructor for Kaltura connection class.
      *
-     * @param - none
-     * @return bool - true is active, false if timed out or not active
+     * @param int $timeout Length of timeout for Kaltura session in minutes
      */
-    private function connection_active() {
-
-        // Connection is not active
-        if (empty(self::$connection) ||
-            empty(self::$timestarted) ||
-            empty(self::$timeout)) {
-
-            return false;
+    public function __construct($timeout = KALTURA_SESSION_LENGTH) {
+        self::$connection = local_kaltura_login(true, '', $timeout);
+        if (!empty(self::$connection)) {
+            self::$timestarted = time();
+            self::$timeout = $timeout;
         }
-
-        // Calculate session time remaining
-        $time_left = time() - self::$timestarted;
-
-        // If the session time has expired
-        if ($time_left >= self::$timeout) {
-//            print_object('time started: ' . self::$timestarted);
-//            print_object('session time out: ' . self::$timeout);
-//            print_object('time left '. $time_left);
-
-            return false;
-        }
-
-        return true;
     }
 
     /**
      * Get the connection object.  Pass true to renew the connection
      *
-     * @param bool - true to renew the session if it has expired.  Otherwise
-     * false
-     * @param int - seconds to keep the session alive, if zero is passed the
+     * @param bool $renew true to renew the session if it has expired.  Otherwise
+     * false. (OBSOLETE the connection is always renewed.  TODO: remove this parameter
+     * from the function and areas where this method is referenced in all the plug-ins)
+     * @param int $timeout seconds to keep the session alive, if zero is passed the
      * last time out value will be used
-     * @return mixed - Kaltura connection object, or false if connection failed
+     * @return object A Kaltura KalturaClient object
      */
     public function get_connection($renew = true, $timeout = 0) {
-
-        $connection = false;
-
-        // If connection is active
-        if ($this->connection_active()) {
-            $connection = self::$connection;
-        } else {
-
-            if ($renew) {
-                // Renew connection
-                $connection = $this->renew_connection($timeout);
-            }
-        }
-
-        return $connection;
+        self::$connection = local_kaltura_login(true, '', $timeout);
+        return self::$connection;
     }
 
     /**
@@ -1925,34 +1875,6 @@ class kaltura_connection {
         return self::$timestarted;
     }
 
-    /**
-     * Renew the connection to Kaltura
-     *
-     * @param int - seconds to keep session alive
-     * @return obj - Kaltura connection object
-     */
-    public function renew_connection($timeout) {
-
-        self::$timeout = (0 == $timeout) ? self::$timeout : $timeout;
-
-        self::$connection = local_kaltura_login(true, '', $timeout);
-
-        /** If connected, set the time the session started.
-         * Otherwise set the start time to zero and the connection object to false
-         */
-        if (!empty(self::$connection)) {
-
-            self::$timestarted  = time();
-
-        } else {
-
-            self::$timestarted = 0;
-            self::$connection = false;
-        }
-
-        return self::$connection;
-    }
-
     public function __destruct() {
         global $SESSION;
 
@@ -1962,4 +1884,117 @@ class kaltura_connection {
 
     }
 
+}
+
+/**
+ * Search for Moodle courses with the given query
+ *
+ * @param string $query The course to search for
+ * @return mixed An array of Moodle courses on success; false, otherwise
+ */
+function search_course($query) {
+    global $CFG, $DB;
+
+    $courses = array();
+    $limit = get_config(KALTURA_PLUGIN_NAME, 'search_courses_display_limit');
+
+    if (empty($query)) {
+        return $courses;
+    }
+
+    $sql = "SELECT id, fullname, shortname, idnumber
+             FROM {$CFG->prefix}course
+            WHERE (".$DB->sql_like('fullname', '?', false)."
+               OR ".$DB->sql_like('shortname', '?', false).")
+              AND id != 1
+         ORDER BY fullname ASC";
+
+    if (($records = $DB->get_records_sql($sql, array('%'.$query.'%', '%'.$query.'%'), 0, $limit)) === false) {
+        return false;
+    }
+
+    foreach ($records as $crs) {
+        $context = context_course::instance($crs->id);
+        if (has_capability('local/kaltura:view_report', $context, null, true)) {
+            $course = new stdclass;
+            $course->id = $crs->id;
+            $course->fullname = $crs->fullname;
+            $course->idnumber = $crs->idnumber;
+            $course->shortname = $crs->shortname;
+            $courses[] = $course;
+        }
+    }
+
+    return $courses;
+}
+
+/**
+ * Returns a list of recently accessed Moodle courses
+ *
+ * @return mixed An array of courses on success; false, otherwise
+ */
+function recent_course_history_listing() {
+    global $USER, $DB;
+
+    $limit = get_config(KALTURA_PLUGIN_NAME, 'recent_courses_display_limit');
+    $courses = array();
+
+    // Get the most recently accessed courses by this user
+    // NOTE: JOIN on course table to only get courses which currently still exist
+    $sql = "SELECT ul.courseid AS course, ul.timeaccess
+              FROM {user_lastaccess} ul
+        INNER JOIN {course} c ON c.id = ul.courseid
+             WHERE ul.userid = :userid
+          ORDER BY ul.timeaccess DESC";
+
+    if (($records = $DB->get_records_sql($sql, array('userid' => $USER->id), 0, $limit)) === false) {
+        return false;
+    }
+
+    foreach ($records as $crs) {
+        if ($DB->record_exists('course', array('id' => $crs->course))) {
+            $context = context_course::instance($crs->course);
+            if (has_capability('local/kaltura:view_report', $context, null, true)) {
+                if ($course = $DB->get_record('course', array('id' => $crs->course), 'id, idnumber, fullname, shortname', IGNORE_MISSING)) {
+                    $courses[] = $course;
+                }
+            }
+        }
+    }
+
+    return $courses;
+}
+
+/**
+ * This function determines whether a user has any local/kaltura:view_report capabilities on a course context.
+ * This is a similar and more efficient implementation of the get_user_capability_course function.
+ * Currently this is used to determine if the "Kaltura Course Media Reports" link gets displayed to the user.
+ *
+ * @return boolean Returns true if user has permission; otherwise, false
+ */
+function kaltura_course_report_view_permission() {
+    global $DB, $USER;
+
+    $sql = "SELECT context.id
+              FROM {context} context
+              JOIN {role_assignments} role_assign ON context.id = role_assign.contextid
+              JOIN {role} role ON role_assign.roleid = role.id
+              JOIN {role_capabilities} role_cap ON role_cap.roleid = role.id
+             WHERE context.contextlevel = :context
+               AND role_cap.capability = :capability
+               AND role_assign.userid = :userid
+               AND role_cap.permission = :permission";
+
+    $params = array(
+        'context' => CONTEXT_COURSE,
+        'capability' => 'local/kaltura:view_report',
+        'userid' => $USER->id,
+        'permission' => CAP_ALLOW
+    );
+
+    if ($DB->record_exists_sql($sql, $params)) {
+        return true;
+    }
+
+    return false;
 }

@@ -14,22 +14,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package mod
- * @subpackage kalvidassign
+ * @package mod_kalvidassign
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
  */
 
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
 }
 
-$module->version    = 2012121900;
+$module->version    = 2013071800;
 $module->component  = 'mod_kalvidassign';
-$module->release    = 'Kaltura release 3.0.91';
-$module->requires   = 2011033007;
+$module->release    = 'Kaltura release 3.0.95 (RL: 2.5.1.0)';
+$module->requires   = 2012120300;
 $module->cron       = 0;
 
 $module->dependencies = array(
-    'local_kaltura' => 2012121900,
+    'local_kaltura' => 2013041500,
 );

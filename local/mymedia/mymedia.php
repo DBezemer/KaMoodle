@@ -68,13 +68,12 @@ if (!$connection) {
 $partner_id    = local_kaltura_get_partner_id();
 $login_session = '';
 
-/* Commented out by Loomer to remove use of screenrecorder
 // Include javascript for screen recording widget
 $uiconf_id  = local_kaltura_get_player_uiconf('mymedia_screen_recorder');
 $host = local_kaltura_get_host();
 $url = new moodle_url("{$host}/p/{$partner_id}/sp/{$partner_id}/ksr/uiconfId/{$uiconf_id}");
 $PAGE->requires->js($url, true);
-$PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);*/
+$PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);
 
 $courseid = get_courseid_from_context($PAGE->context);
 
@@ -159,7 +158,7 @@ if ($enabled) {
         } else {
             add_to_log(SITEID, 'local_mymedia', 'View - no videos', '', 'no videos');
 
-            echo $renderer->create_options_table_upper($page);
+            echo $renderer->create_options_table_upper($page, $partner_id, $login_session);
 
             echo '<center>'. get_string('no_videos', 'local_mymedia') . '</center>';
 
@@ -197,9 +196,9 @@ if ($enabled) {
 
             );
 
-        $edit_meta   = has_capability('local/mymedia:editmetadata', $context, $USER) ? 1 : 0;
-        $edit_course = has_capability('local/mymedia:sharecourse', $context, $USER) ? 1 : 0;
-        $edit_site   = has_capability('local/mymedia:sharesite', $context, $USER) ? 1 : 0;
+        $edit_meta = has_capability('local/mymedia:editmetadata', $context, $USER) ? 1 : 0;
+        $edit_course = local_mymedia_check_capability('local/mymedia:sharecourse');
+        $edit_site = local_mymedia_check_capability('local/mymedia:sharesite');
 
         $save_video_script = "../../local/mymedia/save_video_details.php?entry_id=";
         $conversion_script = "../../local/mymedia/check_conversion.php?courseid={$courseid}&entry_id=";

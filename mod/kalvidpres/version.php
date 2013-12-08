@@ -14,7 +14,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package mod_kalvidres
+ * @package mod_kalvidpres
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -23,7 +23,7 @@ if (!defined('MOODLE_INTERNAL')) {
 }
 
 $module->version    = 2013071800;
-$module->component  = 'mod_kalvidres';
+$module->component  = 'mod_kalvidpres';
 $module->release    = 'Kaltura release 3.0.95 (RL: 2.5.1.0)';
 $module->requires   = 2012120300;
 $module->cron       = 0;

@@ -14,20 +14,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package mod_kalvidres
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Kaltura video resource logs file
+ *
+ * @package    mod
+ * @subpackage kalvidres
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-if (!defined('MOODLE_INTERNAL')) {
-    die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
-}
 
-$module->version    = 2013071800;
-$module->component  = 'mod_kalvidres';
-$module->release    = 'Kaltura release 3.0.95 (RL: 2.5.1.0)';
-$module->requires   = 2012120300;
-$module->cron       = 0;
+defined('MOODLE_INTERNAL') || die();
 
-$module->dependencies = array(
-    'local_kaltura' => 2013041500
+global $DB;
+
+$logs = array(
+    array('module'=>'kalvidpres', 'action'=>'view', 'mtable'=>'kalvidpres', 'field'=>'name'),
+
 );

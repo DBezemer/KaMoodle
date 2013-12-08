@@ -1,5 +1,4 @@
 <?php
-
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -16,8 +15,7 @@
 /**
  * Kaltura repository plug-in version file
  *
- * @package    Repository
- * @subpackage Kaltura
+ * @package    repository_kaltura
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -25,11 +23,11 @@ if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
 }
 
-$plugin->version    = 2012121900;
+$plugin->version    = 2013071800;
 $plugin->component  = 'repository_kaltura';
-$plugin->release    = 'Kaltura release 3.0.91';
-$plugin->requires   = 2011033007;
+$plugin->release    = 'Kaltura release 3.0.95 (RL: 2.5.1.0)';
+$plugin->requires   = 2012120300;
 
 $plugin->dependencies = array(
-    'local_kaltura' => 2012121900
+    'local_kaltura' => 2013041500
 );
