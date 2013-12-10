@@ -1,35 +1,34 @@
-kaltura-moodle24
-================
+Kaltura's Video Package for Moodle 2.x makes it easy to add the robust capabilities of Kaltura's open
+source online video platform to any Moodle site. The package was developed specifically for Moodle
+and integrates with other features and modules, such as resources and activities, so that users can
+upload and embed media easily.
 
-A Kaltura/Moodle 2.4 Integration
+The package adds the following features for all users:
 
-This project intends to update the Kaltura Video Package addon (f/k/a plugin) found at https://moodle.org/plugins/view.php?id=447 to work with Moodle 2.4. That addon project is maintained by Ainatte Inbal, Mike Churchward, and Akinsaya Delamarre
+* My Media: users’ personal media gallery, for uploading, viewing, managing, and sharing media
 
-Moodle 2.4 dropped support for the YUI 2 library in favor of YUI 3.  However, to make the transition to YUI 3 easier, Moodle 2.4 supports the use of the YUI 2in3 library.  The present project utilizes the YUI 2in3 library to extend  Kaltura Video Package integration to Moodle 2.4.  It is not a rewrite of the Kaltura Video Package to remove YUI 2 code.
+* Create screen recordings and use them in the Kaltura activities
 
-Development and initial testing is being conducted on a Moodle 2.4.1 and Kaltura 5 CE integration. Kaltura 5 CE does not provide screencapture functionality, so all screencapture code present in the Moodle 2.4 addon has been commented out.  In addition, Kaltura Webcam capture and upload functionality has not yet been tested.
+* Integration as an external repository with the file picker accessible from the text editor: embed your media or media you have access to, anywhere you can author text
 
-Note that all modifications of and additions to the existing Moodle 2.3 Kaltura Vidoe Package addon code have been noted via specific commenting in the code.
+In addition, Teachers and Admins have the following features available:
 
-Subject to the limitations stated above, the following is an overview of the state of the update as of April 10, 2013: 
+* Video Resource activity: Easily add video content to your course as a specialized resource
 
-	Kaltura Video Resource component - appears fully functional
+* Video Presentation activity: Create a synchronized view of a Document and a Video
 
-	Kaltura Video Activity component - appears fully functional
+* Video Assignment activity: Allows students to submit videos as an assignment submission
 
-	MyMedia component - appears fully functional
+* View engagement reports for videos used on your course
 
-	Kaltura Repository upload - appears fully functional
-	
-	Kaltura video embedding via TinyMCE - appears fully functional
-	
-	Kaltura Webcam functionality - not yet fully tested, but basically functional
-	
-	Kaltura Video Presentation component - not yet updated
-	
-	Kaltura Screencapture - not yet updated
+ 
 
-The code made availabe through this project is offered "As Is" without warranty either expressed or implied.  Use it at your own risk.  However, I hope you will find it helpful.
+Version information:
 
-Doug Loomer
+Please take note of the version of Moodle you have and the version of the plug-in you are installing. The Download page states which version of Moodle the version of the plug-in is for.
 
+Version information example: Kaltura release 3.0.96 (RL: 2.5.1.1)
+
+3.0.96 is the version of the plug-in that Kaltura has release. It does not correspond to any Moodle version number and it should be referenced when contacting Kaltura support.
+
+RL: 2.5.1.1 is our internal version. The first two points (2.5) correspond to the version of Moodle that it has been tested with (Moodle 2.5.x).
