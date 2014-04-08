@@ -406,14 +406,25 @@ function repository_kaltura_category_id_path_exists($connection, $category_id, $
  * a KalturaCategory object.  Otherwise false.  The API does not allow searching
  * for categories (using the 'category' service) by name
  *
- * @param obj - Kaltura connection object
- * @param string - category fullName path
- * @return mixed - KalturaCategory if path exists, otherwise false
+ * @param kaltura_connection $connection An instance of the kaltura_connection class
+ * @param string $path The Kaltura repository root path
+ * @return bool|KalturaCategory - A KalturaCategory if path exists, otherwise false
  */
 function repository_kaltura_category_path_exists($connection, $path) {
+    global $SESSION;
 
     if (empty($path)) {
         return false;
+    }
+
+    // Retrieve access data from the session global
+    if (isset($SESSION->kalrepo)) {
+
+        if (isset($SESSION->kalrepo["$path"]) && !empty($SESSION->kalrepo["$path"])) {
+            return $SESSION->kalrepo["$path"];
+        }
+    } else {
+        $SESSION->kalrepo = array(array());
     }
 
     $filter = new KalturaCategoryFilter();
@@ -425,7 +436,8 @@ function repository_kaltura_category_path_exists($connection, $path) {
         1 <= $result->totalCount) {
 
         if ($result->objects[0] instanceof KalturaCategory) {
-            return $result->objects[0];
+            $SESSION->kalrepo["$path"] = $result->objects[0];
+            return $SESSION->kalrepo["$path"];
         }
     }
 
