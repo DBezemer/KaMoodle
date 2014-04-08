@@ -16,8 +16,7 @@
 /**
  * Kaltura video assignment single submission form
  *
- * @package    mod
- * @subpackage kalvidassign
+ * @package    mod_kalvidassign
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -29,7 +28,10 @@ require_once(dirname(dirname(dirname(__FILE__))) . '/course/moodleform_mod.php')
 
 class kalvidassign_singlesubmission_form extends moodleform {
 
-    function definition() {
+    /**
+     * This function defines the forums elments that are to be displayed
+     */
+    public function definition() {
         global $CFG, $PAGE;
 
         $mform =& $this->_form;
@@ -38,10 +40,15 @@ class kalvidassign_singlesubmission_form extends moodleform {
         $userid = $this->_customdata->userid;
 
         $mform->addElement('hidden', 'cmid', $cm->id);
+        $mform->setType('cmid', PARAM_INT);
         $mform->addelement('hidden', 'userid', $userid);
+        $mform->setType('userid', PARAM_INT);
         $mform->addElement('hidden', 'tifirst', $this->_customdata->tifirst);
+        $mform->setType('tifirst', PARAM_TEXT);
         $mform->addElement('hidden', 'tilast', $this->_customdata->tilast);
+        $mform->setType('tilast', PARAM_TEXT);
         $mform->addElement('hidden', 'page', $this->_customdata->page);
+        $mform->setType('page', PARAM_INT);
 
         /* Submission section */
         $mform->addElement('header', 'single_submission_1', get_string('submission', 'kalvidassign'));
@@ -55,7 +62,7 @@ class kalvidassign_singlesubmission_form extends moodleform {
 
         $submission     = $this->_customdata->submission;
         $grading_info   = $this->_customdata->grading_info;
-        $entry_object   = '';
+        $entryobject   = '';
         $timemodified   = '';
 
         if (!empty($submission->entry_id)) {
@@ -64,32 +71,28 @@ class kalvidassign_singlesubmission_form extends moodleform {
             $connection     = $kaltura->get_connection(true, KALTURA_SESSION_LENGTH);
             
             if ($connection) {
-                $entry_object = local_kaltura_get_ready_entry_object($this->_customdata->submission->entry_id);
+                $entryobject = local_kaltura_get_ready_entry_object($this->_customdata->submission->entry_id);
     
                 // Determine the type of video (See KALDEV-28)
-                if (!local_kaltura_video_type_valid($entry_object)) {
-                    $entry_object = local_kaltura_get_ready_entry_object($entry_object->id, false);
+                if (!local_kaltura_video_type_valid($entryobject)) {
+                    $entryobject = local_kaltura_get_ready_entry_object($entryobject->id, false);
                 }
             }
 
         }
 
-        if (!empty($entry_object)) {
-
-            // Force the video to be embedded as large
-            $entry_object->height = '365';
-            $entry_object->width = '400';
-
+        if (!empty($entryobject)) {
+            list($entryobject->width, $entryobject->height) = kalvidassign_get_player_dimensions();
             $courseid = get_courseid_from_context($this->_customdata->context);
 
             // Set the session
-            $session = local_kaltura_generate_kaltura_session(array($entry_object->id));
+            $session = local_kaltura_generate_kaltura_session(array($entryobject->id));
 
 
             $mform->addElement('static', 'description', get_string('submission', 'kalvidassign'),
-                               local_kaltura_get_kdp_code($entry_object, 0, $courseid));
+                    local_kaltura_get_kdp_code($entryobject, 0, $courseid));
 
-        } elseif (empty($entry_object) && isset($submission->timemodified) && !empty($submission->timemodified)) {
+        } else if (empty($entryobject) && isset($submission->timemodified) && !empty($submission->timemodified)) {
 
             if ($connection) {
                 // an empty entry object and a time modified timestamp means the video is still converting
