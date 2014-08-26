@@ -37,7 +37,7 @@ if (! $cm = get_coursemodule_from_id('kalvidassign', $cmid)) {
     print_error('invalidcoursemodule');
 }
 
-if (! $course = $DB->get_record('course', array('id' => $cm->course))) {
+if (! $course = get_course($cm->course)) {
     print_error('coursemisconf');
 }
 

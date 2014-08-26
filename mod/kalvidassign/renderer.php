@@ -129,7 +129,7 @@ class submissions_table extends table_sql {
                           'class' => $locked_overridden);
 
 
-            $output = html_writer::tag('div', $final_grade->formatted_grade, $attr);
+            $output = html_writer::div($final_grade->formatted_grade, '', $attr);
 
 
         } else if (!empty($this->_quickgrade)) {
@@ -164,7 +164,6 @@ class submissions_table extends table_sql {
 
 
     function col_submissioncomment($data) {
-        global $OUTPUT;
 
         $output      = '';
         $final_grade = false;
@@ -210,11 +209,10 @@ class submissions_table extends table_sql {
 
         $attr = array('id' => 'ts'.$data->id);
 
-        $date_modified = $data->timemodified;
-        $date_modified = is_null($date_modified) || empty($data->timemodified) ?
-                            '' : userdate($date_modified);
+        $date_modified = is_null($data->timemodified) || empty($data->timemodified) ?
+                            '' : userdate($data->timemodified);
 
-        $output = html_writer::tag('div', $date_modified, $attr);
+        $output = html_writer::div($date_modified, '', $attr);
 
         $output .= html_writer::empty_tag('br');
         $output .= html_writer::start_tag('center');
@@ -234,7 +232,7 @@ class submissions_table extends table_sql {
 
                 if (!array_key_exists($data->entry_id, $this->_entries)) {
                     $note = get_string('grade_video_not_cache', 'kalvidassign');
-    
+
                     // If the entry has not yet been cached, force a call to retrieve the entry object
                     // from the Kaltura server so that the thumbnail can be displayed
                     $entry_object = local_kaltura_get_ready_entry_object($data->entry_id, false);
@@ -290,7 +288,7 @@ class submissions_table extends table_sql {
         if (0 < $data->timemarked) {
 
                 $attr = array('id' => 'tt'.$data->id);
-                $output = html_writer::tag('div', userdate($data->timemarked), $attr);
+                $output = html_writer::div(userdate($data->timemarked), '', $attr);
 
         } else {
             $otuput = '-';
@@ -401,7 +399,7 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
         $attr = array('id' => 'notification',
                       'class' => 'notification',
                       'tabindex' => '-1');
-        $html .= html_writer::tag('div', '', $attr);
+        $html .= html_writer::div('', '', $attr);
 
         if (!empty($entry_obj)) {
 
@@ -506,8 +504,8 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
 
         // Check of KSR is enabled via config or capability
         $enable_ksr = get_config(KALTURA_PLUGIN_NAME, 'enable_screen_recorder');
-        $context    = get_context_instance(CONTEXT_MODULE, $cm->id);
-        
+        $context    = context_module::instance($cm->id);
+
 
         if ($enable_ksr && has_capability('mod/kalvidassign:screenrecorder', $context)) {
 
@@ -519,7 +517,7 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
                           'value' => '1');
             $html .= html_writer::empty_tag('input', $attr);
             $html .= html_writer::end_tag('td');
-    
+
             $html .= html_writer::start_tag('td');
             $attr = array('for' => 'id_media_method_1');
             $html .= html_writer::tag('label', get_string('use_screen_recorder', 'kalvidassign'), $attr);
@@ -620,8 +618,8 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
 
         // Check of KSR is enabled via config or capability
         $enable_ksr = get_config(KALTURA_PLUGIN_NAME, 'enable_screen_recorder');
-        $context    = get_context_instance(CONTEXT_MODULE, $cm->id);
-        
+        $context    = context_module::instance($cm->id);
+
 
         if ($enable_ksr && has_capability('mod/kalvidassign:screenrecorder', $context)) {
 
@@ -631,14 +629,14 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
                           'name'  => 'media_method',
                           'id'    => 'id_media_method_1',
                           'value' => '1');
-    
+
             if ($disablesubmit) {
                 $attr['disabled'] = 'disabled';
             }
-    
+
             $html .= html_writer::empty_tag('input', $attr);
             $html .= html_writer::end_tag('td');
-    
+
             $html .= html_writer::start_tag('td');
             $attr = array('for' => 'id_media_method_1');
             $html .= html_writer::tag('label', get_string('use_screen_recorder', 'kalvidassign'), $attr);
@@ -811,7 +809,7 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
         $groups_join   = '';
         $groups        = array();
         $group_ids     = '';
-        $context       = get_context_instance(CONTEXT_COURSE, $COURSE->id);
+        $context       = context_course::instance($COURSE->id);
 
         // Get all groups that the user belongs to, check if the user has capability to access all groups
         if (!has_capability('moodle/site:accessallgroups', $context, $USER->id)) {
@@ -823,7 +821,7 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
                 return;
             }
         } else {
-            $groups = groups_get_all_groups($COURSE->id);            
+            $groups = groups_get_all_groups($COURSE->id);
         }
 
         // Create a comma separated list of group ids
@@ -1029,15 +1027,15 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
         $output = '';
 
         $attr = array('id' => 'video_panel');
-        $output .= html_writer::start_tag('div', $attr);
+        $output .= html_writer::start_div('', $attr);
 
         $attr = array('class' => 'hd');
-        $output .= html_writer::tag('div', '', $attr);
+        $output .= html_writer::div('', '', $attr);
 
         $attr = array('class' => 'bd');
-        $output .= html_writer::tag('div', '', $attr);
+        $output .= html_writer::div('', '', $attr);
 
-        $output .= html_writer::end_tag('div');
+        $output .= html_writer::end_div();
 
         return $output;
     }
@@ -1052,15 +1050,15 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
 
         $attr = array('id' => 'id_video_preview',
                       'class' => 'video_preview');
-        $output .= html_writer::start_tag('div', $attr);
+        $output .= html_writer::start_div('', $attr);
 
         $attr = array('class' => 'hd');
-        $output .= html_writer::tag('div', get_string('video_preview_header', 'kalvidassign'), $attr);
+        $output .= html_writer::div(get_string('video_preview_header', 'kalvidassign'), '', $attr);
 
         $attr = array('class' => 'bd');
-        $output .= html_writer::tag('div', '', $attr);
+        $output .= html_writer::div('', '', $attr);
 
-        $output .= html_writer::end_tag('div');
+        $output .= html_writer::end_div();
 
         return $output;
 
@@ -1075,19 +1073,19 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
         // Panel wait markup
         $output = '';
 
-        $output .= html_writer::end_tag('div');
+        $output .= html_writer::end_div();
 
         $attr = array('id' => 'wait');
-        $output .=  html_writer::start_tag('div', $attr);
+        $output .=  html_writer::start_div('', $attr);
 
         $attr = array('class' => 'hd');
-        $output .= html_writer::tag('div', '', $attr);
+        $output .= html_writer::div('', '', $attr);
 
         $attr = array('class' => 'bd');
 
-        $output .= html_writer::tag('div', '', $attr);
+        $output .= html_writer::div('', '', $attr);
 
-        $output .= html_writer::end_tag('div');
+        $output .= html_writer::end_div();
 
         return $output;
     }
@@ -1194,10 +1192,10 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
         $progress_bar = html_writer::tag('span', '', $attr);
 
         $attr          = array('id' => 'slider_border');
-        $slider_border = html_writer::tag('div', $progress_bar, $attr);
+        $slider_border = html_writer::div($progress_bar, '', $attr);
 
         $attr          = array('id' => 'loading_text');
-        $loading_text  = html_writer::tag('div', get_string('checkingforjava', 'mod_kalvidassign'), $attr);
+        $loading_text  = html_writer::div(get_string('checkingforjava', 'mod_kalvidassign'), '', $attr);
 
         $attr   = array('id' => 'progress_bar_container',
                         'style' => 'width:100%; padding-left:10px; padding-right:10px; visibility: hidden');

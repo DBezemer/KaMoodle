@@ -56,7 +56,7 @@ class filter_kaltura extends moodle_text_filter {
      * @return void
      */
     public function setup($page, $context) {
-        global $CFG, $THEME;
+        global $CFG;
 
         // Check if the local Kaltura plug-in exists.
         if (self::$kalturalocal === false) {
@@ -70,7 +70,7 @@ class filter_kaltura extends moodle_text_filter {
         }
 
         // Determine if the mobile theme is being used
-        $theme = get_selected_theme_for_device_type();
+        $theme = core_useragent::get_device_type_theme();
 
         if (0 == strcmp($theme, 'mymobile')) {
             self::$mobilethemeused = true;
@@ -102,7 +102,7 @@ class filter_kaltura extends moodle_text_filter {
      * @return string - The same text or modified text is returned
      */
     function filter($text, array $options = array()) {
-        global $CFG, $PAGE, $DB;
+        global $CFG, $PAGE;
 
         // Check if the local Kaltura plug-in exists.
         if (!self::$kalturalocal) {
@@ -205,11 +205,10 @@ function update_video_list($link) {
  *
  * Note: resizing via url is not supported, user can click the fullscreen button instead
  *
- * @param  array $link: an array of elements matching the regular expression from class filter_kaltura - filter()
+ * @param  array $link an array of elements matching the regular expression from class filter_kaltura - filter()
  * @return string - Kaltura embed video markup
  */
 function filter_kaltura_callback($link) {
-    global $CFG, $PAGE;
 
     $entry_obj = local_kaltura_get_ready_entry_object($link[4], false);
 

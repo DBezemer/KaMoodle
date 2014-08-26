@@ -20,7 +20,7 @@
 // before any action that may take longer time to finish.
 
 function xmldb_kalvidres_upgrade($oldversion) {
-    global $CFG, $DB;
+    global $DB;
 
     $dbman = $DB->get_manager();
 
@@ -32,12 +32,11 @@ function xmldb_kalvidres_upgrade($oldversion) {
 
         // Launch change of type for field intro
         $dbman->change_field_type($table, $field);
-        
+
         // kalvidres savepoint reached
         upgrade_mod_savepoint(true, 2011110702, 'kalvidres');
     }
 
-    
+
     return true;
 }
-    

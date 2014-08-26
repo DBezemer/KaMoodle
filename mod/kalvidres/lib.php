@@ -141,7 +141,7 @@ function kalvidres_cron () {
  * of his role (student, teacher, admin...). The returned objects must contain
  * at least id property. See other modules as example.
  *
- * @param int $kalvidres ID of an instance of this module
+ * @param int $kalvidresid ID of an instance of this module
  * @return boolean|array false if no participants, array of objects otherwise
  */
 function kalvidres_get_participants($kalvidresid) {

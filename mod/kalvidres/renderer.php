@@ -34,11 +34,9 @@ class mod_kalvidres_renderer extends plugin_renderer_base {
         $output = '';
 
         $attr = array('for' => 'video_name');
-//        $output .= html_writer::tag('label', get_string('vid_prop_name', 'kalvidres'), $attr);
-//        $output .= '&nbsp;';
 
         $output .= html_writer::start_tag('b');
-        $output .= html_writer::tag('div', $title);
+        $output .= html_writer::div($title);
         $output .= html_writer::end_tag('b');
         $output .= html_writer::empty_tag('br');
 
@@ -79,7 +77,7 @@ class mod_kalvidres_renderer extends plugin_renderer_base {
             }
 
             $output .= html_writer::start_tag('center');
-            $output .= html_writer::tag('div', $markup);
+            $output .= html_writer::div($markup);
             $output .= html_writer::end_tag('center');
         } else {
             $output = get_string('video_converting', 'kalvidres');

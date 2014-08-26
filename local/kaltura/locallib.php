@@ -33,8 +33,8 @@ define('KALTURA_PLAYER_UPLOADERREGULAR',                6709401); // KCW
 define('KALTURA_PLAYER_PLAYERREGULARDARK',              6709411); // KDP dark
 define('KALTURA_PLAYER_PLAYERREGULARLIGHT',             6709421); // KDP light
 define('KALTURA_PLAYER_PLAYERVIDEOPRESENTATION',        4860481);
-define('KALTURA_FILE_UPLOADER',                         6386311); // KSU
-define('KALTURA_PLAYER_MYMEDIA_UPLOADER',               6709401); // KCW
+define('KALTURA_FILE_UPLAODER',                         6386311); // KSU
+define('KALTURA_PLAYER_MYMEDIA_UPLOADER',               8464961); // KCW
 define('KALTURA_PLAYER_MYMEDIA_SCREEN_RECORDER',        9780761); // KSR
 define('KALTURA_PLAYER_KSU',                            1002613); // KSU
 
@@ -1582,18 +1582,6 @@ function local_kaltura_htm5_javascript_url($uiconf_id) {
  */
 function local_kaltura_get_enable_html5() {
     return get_config(KALTURA_PLUGIN_NAME, 'enable_html5');
-}
-
-/**
- * Retrives the enable screenrecorder configuration option
- *
- * @param nothing
- *
- * @return string - 1 if enabled, else 0
- */
-
-function local_kaltura_get_enable_screenrecorder() {
-    return get_config(KALTURA_PLUGIN_NAME, 'mymedia_screen_recorder');
 }
 
 /**

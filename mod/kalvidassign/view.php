@@ -37,7 +37,7 @@ if (!empty($id)) {
         print_error('invalidcoursemodule');
     }
 
-    if (! $course = $DB->get_record('course', array('id' => $cm->course))) {
+    if (! $course = get_course($cm->course)) {
         print_error('coursemisconf');
     }
 
@@ -66,7 +66,7 @@ if ($connection) {
     $url = new moodle_url("{$host}/p/{$partner_id}/sp/{$partner_id}/ksr/uiconfId/{$sr_unconf_id}");
     $PAGE->requires->js($url, true);
     $PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);
-    
+
     $PAGE->requires->js('/local/kaltura/js/jquery.js', true);
     $PAGE->requires->js('/local/kaltura/js/swfobject.js', true);
     $PAGE->requires->js('/local/kaltura/js/kcwcallback.js', true);
@@ -77,7 +77,7 @@ $PAGE->set_url('/mod/kalvidassign/view.php', array('id'=>$id));
 $PAGE->set_title(format_string($kalvidassign->name));
 $PAGE->set_heading($course->fullname);
 
-$context = get_context_instance(CONTEXT_MODULE, $cm->id);
+$context = context_module::instance($cm->id);
 
 add_to_log($course->id, 'kalvidassign', 'view assignment details', 'view.php?id='.$cm->id, $kalvidassign->id, $cm->id);
 
@@ -193,15 +193,12 @@ if (!has_capability('mod/kalvidassign:gradesubmission', $context)) {
     );
 
     $courseid               = get_courseid_from_context($PAGE->context);
-    $conversion_script      = '';
     $kcw                    = local_kaltura_get_kcw('assign_uploader', true);
     $markup                 = $renderer->display_all_panel_markup();
     $properties             = kalvidassign_get_video_properties();
     $conversion_script      = "../../local/kaltura/check_conversion.php?courseid={$courseid}&entry_id=";
     $login_session          = '';
-    $modalwidth             = 0;
-    $modalheight            = 0;
-    
+
     if ($connection) {
         $login_session      = $connection->getKs();
     }

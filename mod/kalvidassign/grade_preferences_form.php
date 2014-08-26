@@ -32,16 +32,16 @@ require_once($CFG->libdir.'/formslib.php');
 class kalvidassign_gradepreferences_form extends moodleform {
 
     function definition() {
-        global $CFG, $COURSE, $USER;
+        global $COURSE, $USER;
 
         $mform =& $this->_form;
 
         $mform->addElement('hidden', 'cmid', $this->_customdata['cmid']);
+        $mform->setType('cmid', PARAM_INT);
 
         $mform->addElement('header', 'kal_vid_subm_hdr', get_string('optionalsettings', 'kalvidassign'));
 
-
-        $context = get_context_instance(CONTEXT_MODULE, $this->_customdata['cmid']);
+        $context = context_module::instance($this->_customdata['cmid']);
 
         $group_opt = array();
         $groups    = array();

@@ -54,8 +54,6 @@ function kalvidassign_assignemnt_submission_expired($kalvidassign) {
 }
 
 function kalvidassign_submissions($mode) {
-    //make user global so we can use the id
-    global $USER, $OUTPUT, $DB, $PAGE;
 
     $mailinfo = optional_param('mailinfo', null, PARAM_BOOL);
 
@@ -83,11 +81,11 @@ function kalvidassign_submissions($mode) {
 
 /**
  * Retrieve a list of users who have submitted assignments
- * 
+ *
  * @param int - assignment instance id
  * @param string - filter results by assignments that have been submitted or
  * assignment that need to be graded or no filter at all
- * 
+ *
  * @return mixed - collection of users or false
  */
 function kalvidassign_get_submissions($kalvidassignid, $filter = '') {
@@ -359,11 +357,10 @@ function kalvidassign_email_teachers_html($info) {
 
 
 function kalvidassign_get_assignment_students($cm) {
-    global $CFG;
 
-    $context    = get_context_instance(CONTEXT_MODULE, $cm->id);
+    $context    = context_module::instance($cm->id);
     $users = get_enrolled_users($context, 'mod/kalvidassign:submit', 0, 'u.id');
-    
+
     return $users;
 }
 

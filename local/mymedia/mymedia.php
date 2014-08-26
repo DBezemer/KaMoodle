@@ -69,14 +69,12 @@ if (!$connection) {
 $partner_id    = local_kaltura_get_partner_id();
 $login_session = '';
 
-if (local_kaltura_get_enable_screenrecorder()) {
-	// Include javascript for screen recording widget
-	$uiconf_id  = local_kaltura_get_player_uiconf('mymedia_screen_recorder');
-	$host = local_kaltura_get_host();
-	$url = new moodle_url("{$host}/p/{$partner_id}/sp/{$partner_id}/ksr/uiconfId/{$uiconf_id}");
-	$PAGE->requires->js($url, true);
-	$PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);
-}
+// Include javascript for screen recording widget
+$uiconf_id  = local_kaltura_get_player_uiconf('mymedia_screen_recorder');
+$host = local_kaltura_get_host();
+$url = new moodle_url("{$host}/p/{$partner_id}/sp/{$partner_id}/ksr/uiconfId/{$uiconf_id}");
+$PAGE->requires->js($url, true);
+$PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);
 
 $courseid = get_courseid_from_context($PAGE->context);
 
@@ -109,7 +107,7 @@ if ($data = data_submitted() and confirm_sesskey()) {
     }
 }
 
-$context = get_context_instance(CONTEXT_USER, $USER->id);
+$context = context_user::instance($USER->id);
 
 require_capability('local/mymedia:view', $context, $USER);
 
@@ -122,7 +120,7 @@ if ($enabled) {
         if (!$connection) {
             throw new Exception("Unable to connect");
         }
- 
+
         // Required by screen recorder
         $login_session = $connection->getKs();
 

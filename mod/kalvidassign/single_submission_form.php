@@ -32,7 +32,7 @@ class kalvidassign_singlesubmission_form extends moodleform {
      * This function defines the forums elments that are to be displayed
      */
     public function definition() {
-        global $CFG, $PAGE;
+        global $CFG;
 
         $mform =& $this->_form;
 
@@ -63,16 +63,15 @@ class kalvidassign_singlesubmission_form extends moodleform {
         $submission     = $this->_customdata->submission;
         $grading_info   = $this->_customdata->grading_info;
         $entryobject   = '';
-        $timemodified   = '';
 
         if (!empty($submission->entry_id)) {
 
             $kaltura        = new kaltura_connection();
             $connection     = $kaltura->get_connection(true, KALTURA_SESSION_LENGTH);
-            
+
             if ($connection) {
                 $entryobject = local_kaltura_get_ready_entry_object($this->_customdata->submission->entry_id);
-    
+
                 // Determine the type of video (See KALDEV-28)
                 if (!local_kaltura_video_type_valid($entryobject)) {
                     $entryobject = local_kaltura_get_ready_entry_object($entryobject->id, false);
@@ -221,8 +220,6 @@ class kalvidassign_singlesubmission_form extends moodleform {
         } else {
             $data->textformat = $data->submission->format;
         }
-
-        $editoroptions = $this->get_editor_options();
 
         return parent::set_data($data);
 
