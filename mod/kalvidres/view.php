@@ -23,6 +23,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
 require_once(dirname(dirname(dirname(__FILE__))) . '/local/kaltura/locallib.php');
+require_once('lib.php');
 
 $id = optional_param('id', 0, PARAM_INT);           // Course Module ID
 
@@ -37,7 +38,7 @@ if (!empty($id)) {
         print_error('invalidcoursemodule');
     }
 
-    if (! $course = get_course($cm->course)) {
+    if (! $course = $DB->get_record('course', array('id' => $cm->course))) {
         print_error('coursemisconf');
     }
 
@@ -70,7 +71,12 @@ if ($connection) {
 
 $context = $PAGE->context;
 
-add_to_log($course->id, 'kalvidres', 'view video resource', 'view.php?id='.$cm->id, $kalvidres->id, $cm->id);
+$event = \mod_kalvidres\event\course_module_viewed::create(array(
+    'objectid' => $PAGE->cm->instance,
+    'context' => $PAGE->context,
+));
+$event->add_record_snapshot('course', $PAGE->course);
+$event->trigger();
 
 $completion = new completion_info($course);
 $completion->set_module_viewed($cm);

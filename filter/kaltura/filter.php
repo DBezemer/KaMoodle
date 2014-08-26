@@ -147,7 +147,7 @@ class filter_kaltura extends moodle_text_filter {
 
             // Get the course id of the current context
             if (empty(self::$courseid)) {
-                self::$courseid = get_courseid_from_context($PAGE->context);
+                self::$courseid = $PAGE->course->id;
             }
 
             try {

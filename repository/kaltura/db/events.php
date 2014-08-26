@@ -1,5 +1,7 @@
 <?php
 
+// This file is part of Moodle - http://moodle.org/
+//
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -14,20 +16,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package mod_kalvidassign
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Events listener script
+ *
+ *
+ * @package    local
+ * @subpackage mymedia
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-if (!defined('MOODLE_INTERNAL')) {
-    die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
-}
-
-$module->version = 2014082601;
-$module->component = 'mod_kalvidassign';
-$module->release = 'Kaltura release 3.1.02 (RL: 2.6.1.1)';
-$module->requires = 2013111800;
-$module->cron = 0;
-$module->maturity = MATURITY_STABLE;
-$module->dependencies = array(
-    'local_kaltura' => 2014010901
+/* List of handlers */
+$handlers = array (
+    'course_deleted' => array (
+        'handlerfile'      => '/repository/kaltura/locallib.php',
+        'handlerfunction'  => 'repository_kaltura_delete_category',
+        'schedule'         => 'instant',
+        'internal'         => 1,
+    ),
+    
 );

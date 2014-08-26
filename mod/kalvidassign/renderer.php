@@ -77,16 +77,9 @@ class submissions_table extends table_sql {
     }
 
     function col_picture($data) {
-        global $OUTPUT;
+        global $DB,$OUTPUT;
 
-        $user = new stdClass();
-        $user->id           = $data->id;
-        $user->picture      = $data->picture;
-        $user->imagealt     = $data->imagealt;
-        $user->firstname    = $data->firstname;
-        $user->lastname     = $data->lastname;
-        $user->email        = $data->email;
-
+        $user = $DB->get_record('user', array('id' => $data->id));
         $output = $OUTPUT->user_picture($user);
 
         $attr = array('type' => 'hidden',
@@ -502,29 +495,6 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
 
         $html .= html_writer::start_tag('table');
 
-        // Check of KSR is enabled via config or capability
-        $enable_ksr = get_config(KALTURA_PLUGIN_NAME, 'enable_screen_recorder');
-        $context    = context_module::instance($cm->id);
-
-
-        if ($enable_ksr && has_capability('mod/kalvidassign:screenrecorder', $context)) {
-
-            $html .= html_writer::start_tag('tr');
-            $html .= html_writer::start_tag('td');
-            $attr = array('type' => 'radio',
-                          'name' => 'media_method',
-                          'id' => 'id_media_method_1',
-                          'value' => '1');
-            $html .= html_writer::empty_tag('input', $attr);
-            $html .= html_writer::end_tag('td');
-
-            $html .= html_writer::start_tag('td');
-            $attr = array('for' => 'id_media_method_1');
-            $html .= html_writer::tag('label', get_string('use_screen_recorder', 'kalvidassign'), $attr);
-            $html .= html_writer::end_tag('td');
-            $html .= html_writer::end_tag('tr');
-        }
-
         $html .= html_writer::start_tag('tr');
         $html .= html_writer::start_tag('td');
         $attr = array('type' => 'radio',
@@ -615,35 +585,6 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
 
         // Add media type radio buttons
         $html .= html_writer::start_tag('table');
-
-        // Check of KSR is enabled via config or capability
-        $enable_ksr = get_config(KALTURA_PLUGIN_NAME, 'enable_screen_recorder');
-        $context    = context_module::instance($cm->id);
-
-
-        if ($enable_ksr && has_capability('mod/kalvidassign:screenrecorder', $context)) {
-
-            $html .= html_writer::start_tag('tr');
-            $html .= html_writer::start_tag('td');
-            $attr = array('type'  => 'radio',
-                          'name'  => 'media_method',
-                          'id'    => 'id_media_method_1',
-                          'value' => '1');
-
-            if ($disablesubmit) {
-                $attr['disabled'] = 'disabled';
-            }
-
-            $html .= html_writer::empty_tag('input', $attr);
-            $html .= html_writer::end_tag('td');
-
-            $html .= html_writer::start_tag('td');
-            $attr = array('for' => 'id_media_method_1');
-            $html .= html_writer::tag('label', get_string('use_screen_recorder', 'kalvidassign'), $attr);
-            $html .= html_writer::end_tag('td');
-            $html .= html_writer::end_tag('tr');
-        }
-
 
         $html .= html_writer::start_tag('tr');
         $html .= html_writer::start_tag('td');
@@ -749,7 +690,7 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
     function display_submissions_table($cm, $group_filter = 0, $filter = 'all', $perpage, $quickgrade = false,
                                        $tifirst = '', $tilast = '', $page = 0) {
 
-        global $DB, $OUTPUT, $COURSE, $USER;
+        global $OUTPUT, $COURSE, $USER;
 
         // Get a list of users who have submissions and retrieve grade data for those users
         $users = kalvidassign_get_submissions($cm->instance, $filter);
@@ -878,7 +819,7 @@ class mod_kalvidassign_renderer extends plugin_renderer_base {
 
         // In order for the sortable first and last names to work.  User ID has to be the first column returned and must be
         // returned as id.  Otherwise the table will display links to user profiles that are incorrect or do not exist
-        $columns        = 'u.id, kvs.id AS submitid, u.firstname, u.lastname, u.picture, u.imagealt, u.email, '.
+        $columns        = 'u.id, kvs.id AS submitid, u.firstname, u.lastname, u.picture, u.imagealt, u.email, u.firstnamephonetic, u.lastnamephonetic, u.middlename, u.alternatename, '.
                           ' kvs.grade, kvs.submissioncomment, kvs.timemodified, kvs.entry_id, kvs.timemarked, '.
                           '1 AS status, 1 AS selectgrade' . $groups_column;
         $where          .= ' u.deleted = 0 AND u.id IN ('.implode(',', $users).') ' . $groups_where;

@@ -33,7 +33,7 @@ class mod_kalvidres_mod_form extends moodleform_mod {
     var $_default_player = false;
 
     function definition() {
-        global $CFG, $COURSE, $PAGE;
+        global $CFG, $PAGE;
 
         $kaltura = new kaltura_connection();
         $connection = $kaltura->get_connection(true, KALTURA_SESSION_LENGTH);
@@ -47,24 +47,18 @@ class mod_kalvidres_mod_form extends moodleform_mod {
         $PAGE->requires->css('/mod/kalvidres/styles.css');
 
         $partner_id    = local_kaltura_get_partner_id();
-        $sr_unconf_id  = local_kaltura_get_player_uiconf('mymedia_screen_recorder');
         $host = local_kaltura_get_host();
-        $url = new moodle_url("{$host}/p/{$partner_id}/sp/{$partner_id}/ksr/uiconfId/{$sr_unconf_id}");
 
         // This line is needed to avoid a PHP warning when the form is submitted
         // Because this value is set as the default for one of the formslib elements
         $uiconf_id = '';
-
+        
         // Check if connection to Kaltura can be established
         if ($connection) {
 
-            $PAGE->requires->js($url, true);
-            $PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);
-
-            $PAGE->requires->js('/local/kaltura/js/jquery.js', true);
             $PAGE->requires->js('/local/kaltura/js/swfobject.js', true);
             $PAGE->requires->js('/local/kaltura/js/kcwcallback.js', true);
-
+    
             $jsmodule = array(
                 'name'     => 'local_kaltura',
                 'fullpath' => '/local/kaltura/js/kaltura.js',
@@ -84,21 +78,21 @@ class mod_kalvidres_mod_form extends moodleform_mod {
                         array('checkingforjava', 'kalvidres')
                 )
             );
-
-            $courseid = get_courseid_from_context($PAGE->context);
-
+    
+            $courseid = $PAGE->course->id;
+    
             $conversion_script = "../local/kaltura/check_conversion.php?courseid={$courseid}&entry_id=";
-
+    
             $panel_markup           = $this->get_popup_markup();
             $kcw                    = local_kaltura_get_kcw('res_uploader', true);
             $uiconf_id              = local_kaltura_get_player_uiconf('player_resource');
             $progress_bar_markup    = $this->draw_progress_bar();
-
+    
             $PAGE->requires->js_init_call('M.local_kaltura.video_resource',
                                           array($conversion_script, $panel_markup, $kcw, $uiconf_id, $login_session, $partner_id, $progress_bar_markup),
                                           true, $jsmodule);
         }
-
+    
         if (local_kaltura_has_mobile_flavor_enabled() && local_kaltura_get_enable_html5()) {
 
             $url = new moodle_url(local_kaltura_htm5_javascript_url($uiconf_id));
@@ -165,17 +159,17 @@ class mod_kalvidres_mod_form extends moodleform_mod {
 
     private function draw_progress_bar() {
         $attr         = array('id' => 'progress_bar');
-        $progress_bar = html_writer::span('', '', $attr);
+        $progress_bar = html_writer::tag('span', '', $attr);
 
         $attr          = array('id' => 'slider_border');
-        $slider_border = html_writer::div($progress_bar, '', $attr);
+        $slider_border = html_writer::tag('div', $progress_bar, $attr);
 
         $attr          = array('id' => 'loading_text');
-        $loading_text  = html_writer::div(get_string('checkingforjava', 'mod_kalvidres'), '', $attr);
+        $loading_text  = html_writer::tag('div', get_string('checkingforjava', 'mod_kalvidres'), $attr);
 
         $attr   = array('id' => 'progress_bar_container',
                         'style' => 'width:100%; padding-left:10px; padding-right:10px; visibility: hidden');
-        $output = html_writer::span($slider_border . $loading_text, '', $attr);
+        $output = html_writer::tag('span', $slider_border . $loading_text, $attr);
 
         return $output;
 
@@ -195,20 +189,6 @@ class mod_kalvidres_mod_form extends moodleform_mod {
 
         $radioarray = array();
         $attributes = array();
-        $enable_ksr = get_config(KALTURA_PLUGIN_NAME, 'enable_screen_recorder');
-        $context    = null;
-
-        // Check of KSR is enabled via config or capability
-        if (!empty($this->_cm)) {
-            $context       = context_module::instance($this->_cm->id);
-        } else {
-
-            $context       = context_course::instance($COURSE->id);
-        }
-
-        if ($enable_ksr && has_capability('mod/kalvidres:screenrecorder', $context)) {
-            $radioarray[] =& $mform->createElement('radio', 'media_method', '', get_string('use_screen_recorder', 'kalvidres'), 1, $attributes);
-        }
 
         $radioarray[] =& $mform->createElement('radio', 'media_method', '', get_string('use_kcw', 'kalvidres'), 0, $attributes);
         $mform->addGroup($radioarray, 'radioar', get_string('media_method', 'kalvidres'), array('<br />'), false);
@@ -229,38 +209,58 @@ class mod_kalvidres_mod_form extends moodleform_mod {
 
         // Panel markup to load the KCW
         $attr = array('id' => 'video_panel');
-        $output .=  html_writer::start_div('', $attr);
-        $output .= html_writer::div('', 'hd', $attr);
-        $output .= html_writer::div('', 'bd', $attr);
-        $output .= html_writer::end_div();
+        $output .=  html_writer::start_tag('div', $attr);
+
+        $attr = array('class' => 'hd');
+        $output .= html_writer::tag('div', '', $attr);
+
+        $attr = array('class' => 'bd');
+        $output .= html_writer::tag('div', '', $attr);
+
+        $output .= html_writer::end_tag('div');
 
         // Panel markup to set video properties
         $attr = array('id' => 'video_properties_panel');
-        $output .=  html_writer::start_div('', $attr);
-        $output .= html_writer::div(get_string('vid_prop_header', 'kalvidres'), 'hd', $attr);
+        $output .=  html_writer::start_tag('div', $attr);
+
+        $attr = array('class' => 'hd');
+        $output .= html_writer::tag('div', get_string('vid_prop_header', 'kalvidres'), $attr);
+
+        $attr = array('class' => 'bd');
 
         $properties_markup = $this->get_video_preferences_markup();
 
-        $output .= html_writer::div($properties_markup, 'bd', $attr);
-        $output .= html_writer::end_div();
+        $output .= html_writer::tag('div', $properties_markup, $attr);
+
+        $output .= html_writer::end_tag('div');
 
         // Panel markup to preview video
         $attr = array('id' => 'video_preview_panel');
-        $output .=  html_writer::start_div('hd', $attr);
-        $output .= html_writer::div(get_string('video_preview_header', 'kalvidres'), 'hd', $attr);
+        $output .=  html_writer::start_tag('div', $attr);
 
-        $attr = array('id' => 'video_preview_body');
+        $attr = array('class' => 'hd');
+        $output .= html_writer::tag('div', get_string('video_preview_header', 'kalvidres'), $attr);
 
-        $output .= html_writer::div('', 'hd', $attr);
+        $attr = array('class' => 'bd',
+                      'id' => 'video_preview_body');
+
+        $output .= html_writer::tag('div', '', $attr);
 
         // Panel wait markup
-        $output .= html_writer::end_div();
+        $output .= html_writer::end_tag('div');
 
         $attr = array('id' => 'wait');
-        $output .=  html_writer::start_div('hd', $attr);
-        $output .= html_writer::div('', 'hd', $attr);
-        $output .= html_writer::div('', 'bd', $attr);
-        $output .= html_writer::end_div();
+        $output .=  html_writer::start_tag('div', $attr);
+
+        $attr = array('class' => 'hd');
+        $output .= html_writer::tag('div', '', $attr);
+
+        $attr = array('class' => 'bd');
+
+        $output .= html_writer::tag('div', '', $attr);
+
+        $output .= html_writer::end_tag('div');
+
 
         return $output;
     }
@@ -272,8 +272,10 @@ class mod_kalvidres_mod_form extends moodleform_mod {
 
         // tabindex -1 is required in order for the focus event to be capture
         // amongst all browsers
-        $attr = array('id' => 'notification','tabindex' => '-1');
-        $output = html_writer::div('', 'notification', $attr);
+        $attr = array('id' => 'notification',
+                      'class' => 'notification',
+                      'tabindex' => '-1');
+        $output = html_writer::tag('div', '', $attr);
 
         $source = $CFG->wwwroot . '/local/kaltura/pix/vidThumb.png';;
         $alt    = get_string('add_video', 'kalvidres');
@@ -445,6 +447,13 @@ class mod_kalvidres_mod_form extends moodleform_mod {
         $output .= html_writer::empty_tag('input', $attr);
 
         return $output;
+    }
+
+    private function get_default_video_properties() {
+        return $properties = array('vid_prop_player' => 4674741,
+                                   'vid_prop_dimensions' => 0,
+                                   'vid_prop_size' => 0,
+                                  );
     }
 
     function definition_after_data() {

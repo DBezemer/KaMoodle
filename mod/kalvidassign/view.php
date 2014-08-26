@@ -23,6 +23,7 @@
 require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
 require_once(dirname(dirname(dirname(__FILE__))) . '/local/kaltura/locallib.php');
 require_once(dirname(__FILE__) . '/locallib.php');
+require_once('lib.php');
 
 $id = optional_param('id', 0, PARAM_INT);           // Course Module ID
 
@@ -61,13 +62,7 @@ if ($connection) {
 
     // If a connection is made then include the JS libraries
     $partner_id    = local_kaltura_get_partner_id();
-    $sr_unconf_id  = local_kaltura_get_player_uiconf('mymedia_screen_recorder');
     $host = local_kaltura_get_host();
-    $url = new moodle_url("{$host}/p/{$partner_id}/sp/{$partner_id}/ksr/uiconfId/{$sr_unconf_id}");
-    $PAGE->requires->js($url, true);
-    $PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);
-
-    $PAGE->requires->js('/local/kaltura/js/jquery.js', true);
     $PAGE->requires->js('/local/kaltura/js/swfobject.js', true);
     $PAGE->requires->js('/local/kaltura/js/kcwcallback.js', true);
 }
@@ -79,7 +74,12 @@ $PAGE->set_heading($course->fullname);
 
 $context = context_module::instance($cm->id);
 
-add_to_log($course->id, 'kalvidassign', 'view assignment details', 'view.php?id='.$cm->id, $kalvidassign->id, $cm->id);
+$event = \mod_kalvidassign\event\course_module_viewed::create(array(
+    'objectid' => $PAGE->cm->instance,
+    'context' => $PAGE->context,
+));
+$event->add_record_snapshot('course', $PAGE->course);
+$event->trigger();
 
 // Update 'viewed' state if required by completion system
 $completion = new completion_info($course);
@@ -192,7 +192,7 @@ if (!has_capability('mod/kalvidassign:gradesubmission', $context)) {
         )
     );
 
-    $courseid               = get_courseid_from_context($PAGE->context);
+    $courseid               = $PAGE->course->id;
     $kcw                    = local_kaltura_get_kcw('assign_uploader', true);
     $markup                 = $renderer->display_all_panel_markup();
     $properties             = kalvidassign_get_video_properties();
