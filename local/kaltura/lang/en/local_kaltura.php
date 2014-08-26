@@ -30,9 +30,9 @@ $string['conn_server'] = 'Connection Server';
 $string['conn_server_desc'] = 'Select whether you are connecting to a hosted account on whether you are connect to your own Kaltura CE server';
 $string['server_uri'] = 'Server URI';
 $string['server_uri_desc'] = 'Type in the server URI you want to connect to.  Otherwise just type in the default settings';
-$string['hosted_login'] = 'Hosted account login';
+$string['hosted_login'] = 'Account login';
 $string['hosted_login_desc'] = 'Login username that is used to log into the Kaltura site';
-$string['hosted_password'] = 'Hosted account password';
+$string['hosted_password'] = 'Account password';
 $string['hosted_password_desc'] = 'Password that is used to log into the Kaltura site';
 $string['player_regular_light'] = 'Player light (6709421)';
 $string['player_regular_dark'] = 'Player dark (6709411)';
@@ -129,33 +129,8 @@ $string['kalvidassign_player_height_desc'] = 'Adjust this setting if your Kaltur
 $string['kalvidassign_player_width'] = 'Player width';
 $string['kalvidassign_player_width_desc'] = 'Adjust this setting if your Kaltura player is being cut off when submitting and/or viewing video submissions.';
 $string['simple_uploader'] = 'Simple Uploader (1002613)';
-$string['enable_reports'] = 'Enable reports';
-$string['enable_reports_desc'] = 'Kaltura reports are only compatible with Kaltura version Falcon or above';
-$string['enable_screen_recorder'] = 'Enable screen recorder';
-$string['enable_screen_recorder_desc'] = 'A global setting to enable the screen recorder across all Kaltura plug-ins (My Media, Video resource, Video presentation and Video assignment).  This option overrides any specific capability settings.';
 
-// Screen recorder
-$string['screenrecorder'] = 'Screen Recording';
-$string['loadingwait'] = 'Loading. This may take a few minutes.';
-
-// Capabilities
-$string['kaltura:view_report'] = 'View Kaltura reports';
-
-// Kaltura reports
-$string['kaltura_report_navbar'] = 'Kaltura Course Media Reports';
-$string['header_kaltura_reports'] = 'Kaltura Reports';
-$string['no_capability'] = 'You don\'t have the capability to view this report';
-$string['report_disabled'] = 'Kaltura reporting has been disabled.  Please enable it in the Kaltura Package Libraries local plug-in';
-$string['kaltura_course_reports'] = 'Kaltura Course Media Reports';
-$string['clear'] = 'Clear';
-$string['course_name'] = 'Course name:';
-$string['found_course'] = 'Found {$a} course(s):';
-$string['no_recent_course'] = 'There are currently no recently visited courses to display';
-$string['no_course_result'] = 'No course results for "{$a}"';
-$string['recent_course_view'] = 'Recently viewed course(s):';
-$string['recent_courses_display_limit'] = 'Recent courses display limit';
-$string['recent_courses_display_limit_desc'] = 'The limit of the number of recently viewed courses to display';
-$string['search'] = 'Search';
-$string['search_courses_display_limit'] = 'Course search display limit';
-$string['search_courses_display_limit_desc'] = 'The limit of the number of courses to display from a search';
-$string['repo_not_installed'] = 'The Kaltura repository needs to be installed to view this file';
+// Kaltura events
+$string['checkconversion'] = 'Check conversion status';
+$string['checkconnection'] = 'Check connection status';
+$string['checkmobile'] = 'Check mobile status';

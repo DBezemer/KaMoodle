@@ -158,29 +158,6 @@ if ($hassiteconfig) {
     $settings->add($adminsetting);
 
 
-    // Kaltura reports section
-    $settings->add(new admin_setting_heading('kaltura_kalreports_heading',
-                   get_string('kaltura_kalreports_heading', 'local_kaltura'), ''));
-
-
-    $adminsetting = new admin_setting_configtext('report_uri', get_string('report_server_uri', 'local_kaltura'),
-                       get_string('report_server_uri_desc', 'local_kaltura'), KALTURA_REPORT_DEFAULT_URI, PARAM_URL);
-    $adminsetting->plugin = KALTURA_PLUGIN_NAME;
-    $settings->add($adminsetting);
-
-    $adminsetting = new admin_setting_configcheckbox('enable_reports', get_string('enable_reports', 'local_kaltura'),
-                       get_string('enable_reports_desc', 'local_kaltura'), '0');
-    $adminsetting->plugin = KALTURA_PLUGIN_NAME;
-    $settings->add($adminsetting);
-
-    $adminsetting = new admin_setting_configtext('recent_courses_display_limit', get_string('recent_courses_display_limit', 'local_kaltura'), get_string('recent_courses_display_limit_desc', 'local_kaltura'), 30, PARAM_INT);
-    $adminsetting->plugin = KALTURA_PLUGIN_NAME;
-    $settings->add($adminsetting);
-
-    $adminsetting = new admin_setting_configtext('search_courses_display_limit', get_string('search_courses_display_limit', 'local_kaltura'), get_string('search_courses_display_limit_desc', 'local_kaltura'), 100, PARAM_INT);
-    $adminsetting->plugin = KALTURA_PLUGIN_NAME;
-    $settings->add($adminsetting);
-
     // Kaltura regular player selection
     if ($enable_api_calls) {
         $players = local_kaltura_get_custom_players();
@@ -265,48 +242,6 @@ if ($hassiteconfig) {
     $adminsetting->plugin = KALTURA_PLUGIN_NAME;
     $settings->add($adminsetting);
 
-    // Kaltura presentation player selection
-    $settings->add(new admin_setting_heading('kaltura_kalvidpres_heading',
-                   get_string('kaltura_kalvidpres_title', 'local_kaltura'), ''));
-
-    $pres_choices = array(KALTURA_PLAYER_PLAYERVIDEOPRESENTATION => get_string('player_presentation', 'local_kaltura'),
-                     0 => get_string('custom_player', 'local_kaltura'));
-
-    $adminsetting = new admin_setting_configselect('presentation', get_string('kaltura_presentation', 'local_kaltura'),
-                       get_string('kaltura_presentation_desc', 'local_kaltura'), KALTURA_PLAYER_PLAYERVIDEOPRESENTATION, $pres_choices);
-    $adminsetting->plugin = KALTURA_PLUGIN_NAME;
-    $settings->add($adminsetting);
-
-    $adminsetting = new admin_setting_configtext('presentation_custom', get_string('kaltura_presentation_custom', 'local_kaltura'),
-                       get_string('kaltura_presentation_custom_desc', 'local_kaltura'), '', PARAM_INT);
-    $adminsetting->plugin = KALTURA_PLUGIN_NAME;
-    $settings->add($adminsetting);
-
-    $adminsetting = new admin_setting_configselect('pres_uploader', get_string('pres_uploader', 'local_kaltura'),
-                       get_string('pres_uploader_desc', 'local_kaltura'), KALTURA_PLAYER_UPLOADERREGULAR, $kcw_choices);
-    $adminsetting->plugin = KALTURA_PLUGIN_NAME;
-    $settings->add($adminsetting);
-
-    $adminsetting = new admin_setting_configtext('pres_uploader_custom', get_string('kaltura_uploader_custom', 'local_kaltura'),
-                       get_string('kaltura_uploader_custom_desc', 'local_kaltura'), '', PARAM_INT);
-    $adminsetting->plugin = KALTURA_PLUGIN_NAME;
-    $settings->add($adminsetting);
-
-    // Kaltura simple uploader player selection
-    $ksu_choices = array(KALTURA_PLAYER_KSU => get_string('simple_uploader', 'local_kaltura'),
-                        0 => get_string('custom_player', 'local_kaltura'));
-
-    $adminsetting = new admin_setting_configselect('simple_uploader', get_string('kaltura_simple_uploader', 'local_kaltura'),
-                       get_string('kaltura_simple_uploader_desc', 'local_kaltura'), KALTURA_PLAYER_KSU, $ksu_choices);
-    $adminsetting->plugin = KALTURA_PLUGIN_NAME;
-    $settings->add($adminsetting);
-
-    $adminsetting = new admin_setting_configtext('simple_uploader_custom', get_string('kaltura_simple_uploader_cust', 'local_kaltura'),
-                       get_string('kaltura_simple_uploader_cust_desc', 'local_kaltura'), '', PARAM_INT);
-    $adminsetting->plugin = KALTURA_PLUGIN_NAME;
-    $settings->add($adminsetting);
-
-
     // Kaltura My Media settings
     $settings->add(new admin_setting_heading('kaltura_mymedia_heading',
                    get_string('kaltura_mymedia_title', 'local_kaltura'), ''));
@@ -333,19 +268,6 @@ if ($hassiteconfig) {
 
     $adminsetting = new admin_setting_configtext('mymedia_uploader_custom', get_string('kaltura_uploader_custom', 'local_kaltura'),
                        get_string('kaltura_uploader_custom_desc', 'local_kaltura'), '', PARAM_INT);
-    $adminsetting->plugin = KALTURA_PLUGIN_NAME;
-    $settings->add($adminsetting);
-
-    $mymedia_scr_choices = array(KALTURA_PLAYER_MYMEDIA_SCREEN_RECORDER => get_string('player_mymedia_screen_recorder', 'local_kaltura'),
-                             0 => get_string('custom_screen_recorder', 'local_kaltura'));
-
-    $adminsetting = new admin_setting_configselect('mymedia_screen_recorder', get_string('mymedia_screen_recorder', 'local_kaltura'),
-                       get_string('mymedia_screen_recorder_desc', 'local_kaltura'), KALTURA_PLAYER_MYMEDIA_SCREEN_RECORDER, $mymedia_scr_choices);
-    $adminsetting->plugin = KALTURA_PLUGIN_NAME;
-    $settings->add($adminsetting);
-
-    $adminsetting = new admin_setting_configtext('mymedia_screen_recorder_custom', get_string('kaltura_screen_recorder_custom', 'local_kaltura'),
-                       get_string('kaltura_screen_recorder_custom_desc', 'local_kaltura'), '', PARAM_INT);
     $adminsetting->plugin = KALTURA_PLUGIN_NAME;
     $settings->add($adminsetting);
 
@@ -382,11 +304,6 @@ if ($hassiteconfig) {
     $adminsetting->plugin = KALTURA_PLUGIN_NAME;
     $settings->add($adminsetting);
 
-    $adminsetting = new admin_setting_configcheckbox('enable_screen_recorder', get_string('enable_screen_recorder', 'local_kaltura'),
-                       get_string('enable_screen_recorder_desc', 'local_kaltura'), '1');
-    $adminsetting->plugin = KALTURA_PLUGIN_NAME;
-    $settings->add($adminsetting);
-
     $adminsetting = new admin_setting_configtext('mymedia_application_name', get_string('application_name', 'local_kaltura'),
                        get_string('application_name_desc', 'local_kaltura'), 'Moodle', PARAM_NOTAGS);
     $adminsetting->plugin = KALTURA_PLUGIN_NAME;
@@ -402,3 +319,4 @@ if ($hassiteconfig) {
     $PAGE->requires->js_init_call('M.local_kaltura.init_config', array($test_script), true, $jsmodule);
 
 }
+?>

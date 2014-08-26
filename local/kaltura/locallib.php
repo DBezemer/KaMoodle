@@ -1342,7 +1342,8 @@ function local_kaltura_get_ready_entry_object($entry_id, $ready_only = true) {
 
     } catch (Exception $ex) {
         // Connection failed for some reason.  Maybe proxy settings?
-        add_to_log(SITEID, 'local_kaltura', ' | check conversion', '', $ex->getMessage());
+        $event = \local_kaltura\event\check_conversion_failed::create(array('error' => $ex->getMessage()));
+        $event->trigger();
         return false;
     }
 }
@@ -1531,7 +1532,8 @@ function local_kaltura_has_mobile_flavor_enabled() {
         return true;
 
     } catch (Exception $ex) {
-        add_to_log(SITEID, 'local_kaltura', ' | mobile flavor on', '', $ex->getMessage());
+        $event = \local_kaltura\event\check_mobile_failed::create(array('error' => $ex->getMessage()));
+        $event->trigger();
         return false;
     }
 }
@@ -1553,7 +1555,8 @@ function local_kaltura_test_connection($client_obj) {
         return $results;
 
     } catch (Exception $ex) {
-        add_to_log(SITEID, 'local_kaltura', ' | test connection', '', $ex->getMessage());
+        $event = \local_kaltura\event\check_connection_failed::create(array('error' => $ex->getMessage()));
+        $event->trigger();
         return false;
     }
 }
@@ -1667,7 +1670,8 @@ function local_kaltura_video_type_valid($entry_obj) {
         }
     } catch (Exception $ex) {
         // Connection failed for some reason.  Maybe proxy settings?
-        add_to_log(SITEID, 'local_kaltura', ' | convert to valid entry type', '', $ex->getMessage());
+        $event = \local_kaltura\event\check_conversion_failed::create(array('error' => $ex->getMessage()));
+        $event->trigger();
         return false;
     }
 
