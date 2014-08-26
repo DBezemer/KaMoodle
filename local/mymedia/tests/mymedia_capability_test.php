@@ -44,6 +44,7 @@ class mymedia_capability_testcase extends advanced_testcase {
         $course = $this->getDataGenerator()->create_course(array('idnumber' => 'crs1', 'fullname' => 'course1', 'shortname' => 'crs1'));
         $role = $DB->get_record('role', array('shortname' => 'student'));
         $coursecontext = context_course::instance($course->id);
+        role_assign($role->id, $user->id, $coursecontext->id);
         assign_capability('local/mymedia:sharecourse', CAP_ALLOW, $role->id, $coursecontext);
         assign_capability('local/mymedia:sharesite', CAP_ALLOW, $role->id, $coursecontext);
 

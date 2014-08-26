@@ -69,12 +69,14 @@ if (!$connection) {
 $partner_id    = local_kaltura_get_partner_id();
 $login_session = '';
 
-// Include javascript for screen recording widget
-$uiconf_id  = local_kaltura_get_player_uiconf('mymedia_screen_recorder');
-$host = local_kaltura_get_host();
-$url = new moodle_url("{$host}/p/{$partner_id}/sp/{$partner_id}/ksr/uiconfId/{$uiconf_id}");
-$PAGE->requires->js($url, true);
-$PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);
+if (local_kaltura_get_enable_screenrecorder()) {
+	// Include javascript for screen recording widget
+	$uiconf_id  = local_kaltura_get_player_uiconf('mymedia_screen_recorder');
+	$host = local_kaltura_get_host();
+	$url = new moodle_url("{$host}/p/{$partner_id}/sp/{$partner_id}/ksr/uiconfId/{$uiconf_id}");
+	$PAGE->requires->js($url, true);
+	$PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);
+}
 
 $courseid = get_courseid_from_context($PAGE->context);
 
