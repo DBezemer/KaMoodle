@@ -51,7 +51,7 @@ class check_conversion_failed extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        $description = $this['error'];
+        $description = $this->other;
         return $description;
     }
 

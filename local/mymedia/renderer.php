@@ -168,10 +168,6 @@ class local_mymedia_renderer extends plugin_renderer_base {
             $upload = $this->create_upload_markup();
         }
 
-        if ($enable_ksr && has_capability('local/mymedia:screenrecorder', $context, $USER)) {
-            $screenrec = $this->create_screenrecorder_markup($partner_id, $login_session);
-        }
-
         if (has_capability('local/mymedia:search', $context, $USER)) {
             $simple_search = $this->create_search_markup();
         }

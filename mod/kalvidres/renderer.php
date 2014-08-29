@@ -34,9 +34,11 @@ class mod_kalvidres_renderer extends plugin_renderer_base {
         $output = '';
 
         $attr = array('for' => 'video_name');
+//        $output .= html_writer::tag('label', get_string('vid_prop_name', 'kalvidres'), $attr);
+//        $output .= '&nbsp;';
 
         $output .= html_writer::start_tag('b');
-        $output .= html_writer::div($title);
+        $output .= html_writer::tag('div', $title);
         $output .= html_writer::end_tag('b');
         $output .= html_writer::empty_tag('br');
 
@@ -58,7 +60,7 @@ class mod_kalvidres_renderer extends plugin_renderer_base {
                 $kalvidres->uiconf_id = $new_player;
             }
 
-            $courseid = get_courseid_from_context($PAGE->context);
+            $courseid = $PAGE->course->id;
 
             // Set the session
             $session = local_kaltura_generate_kaltura_session(array($entry_obj->id));
@@ -66,18 +68,10 @@ class mod_kalvidres_renderer extends plugin_renderer_base {
             $entry_obj->width = $kalvidres->width;
             $entry_obj->height = $kalvidres->height;
 
-            // Determine if the mobile theme is being used
-            $theme = get_selected_theme_for_device_type();
-
-            if (0 == strcmp($theme, 'mymobile')) {
-
-                $markup = local_kaltura_get_kwidget_code($entry_obj, $kalvidres->uiconf_id, $courseid, $session);
-            } else {
-                $markup = local_kaltura_get_kdp_code($entry_obj, $kalvidres->uiconf_id, $courseid, $session);
-            }
+            $markup = local_kaltura_get_kwidget_code($entry_obj, $kalvidres->uiconf_id, $courseid, $session);
 
             $output .= html_writer::start_tag('center');
-            $output .= html_writer::div($markup);
+            $output .= html_writer::tag('div', $markup);
             $output .= html_writer::end_tag('center');
         } else {
             $output = get_string('video_converting', 'kalvidres');

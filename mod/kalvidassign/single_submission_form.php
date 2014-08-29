@@ -32,7 +32,7 @@ class kalvidassign_singlesubmission_form extends moodleform {
      * This function defines the forums elments that are to be displayed
      */
     public function definition() {
-        global $CFG;
+        global $CFG, $PAGE;
 
         $mform =& $this->_form;
 
@@ -84,14 +84,12 @@ class kalvidassign_singlesubmission_form extends moodleform {
             list($entryobject->width, $entryobject->height) = kalvidassign_get_player_dimensions();
             $courseid = $PAGE->course->id;
 
-            // Set the session
-            $session = local_kaltura_generate_kaltura_session(array($entryobject->id));
-
-
             $mform->addElement('static', 'description', get_string('submission', 'kalvidassign'),
                     local_kaltura_get_kdp_code($entryobject, 0, $courseid));
 
         } else if (empty($entryobject) && isset($submission->timemodified) && !empty($submission->timemodified)) {
+            $kaltura        = new kaltura_connection();
+            $connection     = $kaltura->get_connection(true, KALTURA_SESSION_LENGTH);
 
             if ($connection) {
                 // an empty entry object and a time modified timestamp means the video is still converting
@@ -180,7 +178,7 @@ class kalvidassign_singlesubmission_form extends moodleform {
 
         }
 
-        $mform->addElement('static', 'finalgrade', get_string('currentgrade', 'assignment').':' ,$grade);
+        $mform->addElement('static', 'finalgrade', get_string('currentgrade', 'assign').':' ,$grade);
         $mform->setType('finalgrade', PARAM_INT);
 
         /* Feedback section */

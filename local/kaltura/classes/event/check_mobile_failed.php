@@ -25,51 +25,51 @@
 namespace local_kaltura\event;
 
 class check_mobile_failed extends \core\event\base {
-/**
-* Init method.
-*
-* @return void
-*/
-protected function init() {
-$this->context = \context_system::instance();
-$this->data['crud'] = 'c';
-$this->data['edulevel'] = self::LEVEL_OTHER;
-}
+    /**
+    * Init method.
+    *
+    * @return void
+    */
+    protected function init() {
+    $this->context = \context_system::instance();
+    $this->data['crud'] = 'c';
+    $this->data['edulevel'] = self::LEVEL_OTHER;
+    }
 
-/**
-* Return localised event name.
-*
-* @return string
-*/
-public static function get_name() {
-return get_string('checkmobile', 'local_kaltura');
-}
+    /**
+    * Return localised event name.
+    *
+    * @return string
+    */
+    public static function get_name() {
+    return get_string('checkmobile', 'local_kaltura');
+    }
 
-/**
-* Returns non-localised event description with id's for admin use only.
-*
-* @return string
-*/
-public function get_description() {
-$description = $this['error'];
-return $description;
-}
+    /**
+    * Returns non-localised event description with id's for admin use only.
+    *
+    * @return string
+    */
+    public function get_description() {
+    $description = $this->other;
+    return $description;
+    }
 
-/**
-* Get URL related to the action.
-*
-* @return \moodle_url
-*/
-public function get_url() {
-return new \moodle_url('/admin/settings.php?section=local_kaltura');
-}
+    /**
+    * Get URL related to the action.
+    *
+    * @return \moodle_url
+    */
+    public function get_url() {
+    return new \moodle_url('/admin/settings.php?section=local_kaltura');
+    }
 
-/**
-* Return legacy data for add_to_log().
-*
-* @return array
-*/
-protected function get_legacy_logdata() {
-return array(SITEID, 'local_kaltura', 'test mobile flavor', '/admin/settings.php?section=local_kaltura');
-}
+    /**
+    * Return legacy data for add_to_log().
+    *
+    * @return array
+    */
+    protected function get_legacy_logdata() {
+    return array(SITEID, 'local_kaltura', 'test mobile flavor', '/admin/settings.php?section=local_kaltura');
+    }
 }

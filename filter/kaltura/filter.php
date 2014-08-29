@@ -133,7 +133,7 @@ class filter_kaltura extends moodle_text_filter {
             $search = '/<a\s[^>]*href="('.$uri.')\/index\.php\/kwidget\/wid\/_([0-9]+)\/uiconf_id\/([0-9]+)\/entry_id\/([\d]+_([a-z0-9]+))\/v\/flash"[^>]*>([^>]*)<\/a>/is';
 
             // Update the static array of videos, so that later on in the code we can create generate a viewing session for each video
-            preg_replace_callback($search, 'update_video_list', $newtext);
+            preg_replace_callback($search, "update_video_list", $newtext);
 
             // Exit the function if the video entries array is empty
             if (empty(self::$videos)) {
@@ -163,7 +163,6 @@ class filter_kaltura extends moodle_text_filter {
 
                 // Check if the repository plug-in exists.  Add Kaltura video to the Kaltura category
                 $enabled  = local_kaltura_kaltura_repository_enabled();
-                $category = false;
 
                 if ($enabled) {
                     // Because the filter() method is called multiple times during a page request (once for every course section or once for every forum post),
@@ -174,13 +173,12 @@ class filter_kaltura extends moodle_text_filter {
                    repository_kaltura_add_video_course_reference($connection, self::$courseid, self::$videos);
                 }
 
-                $newtext = preg_replace_callback($search, 'filter_kaltura_callback', $newtext);
+                $newtext = preg_replace_callback($search, "filter_kaltura_callback", $newtext);
 
-            } catch (Exception $exp) {
-                add_to_log(self::$courseid, 'filter_kaltura', 'Error embedding video', '', $exp->getMessage());
+            } catch (Exception $ex) {
+                add_to_log(self::$courseid, 'filter_kaltura', 'Error embedding video', '', $ex->getMessage());
             }
         }
-
         if (empty($newtext) || $newtext === $text) {
             // error or not filtered
             unset($newtext);
@@ -195,9 +193,9 @@ class filter_kaltura extends moodle_text_filter {
 /**
  * This functions adds the video entry id to a static array
  */
-function update_video_list($link) {
+function update_video_list($matches) {
 
-    filter_kaltura::$videos[] = $link[4];
+    filter_kaltura::$videos[] = $matches[4];
 }
 
 /**
@@ -208,9 +206,9 @@ function update_video_list($link) {
  * @param  array $link an array of elements matching the regular expression from class filter_kaltura - filter()
  * @return string - Kaltura embed video markup
  */
-function filter_kaltura_callback($link) {
+function filter_kaltura_callback($matches) {
 
-    $entry_obj = local_kaltura_get_ready_entry_object($link[4], false);
+    $entry_obj = local_kaltura_get_ready_entry_object($matches[4], false);
 
     if (empty($entry_obj)) {
         return get_string('unable', 'filter_kaltura');
@@ -226,18 +224,14 @@ function filter_kaltura_callback($link) {
     $entry_obj->height = empty($height) ? $entry_obj->height : $height;
 
     // Generate player markup
-    $markup = '';
 
     filter_kaltura::$playernumber++;
-    $uid = filter_kaltura::$playernumber . '_' . mt_rand();
 
     if (!filter_kaltura::$mobilethemeused) {
-        $markup  = local_kaltura_get_kdp_code($entry_obj, filter_kaltura::$player, filter_kaltura::$courseid, filter_kaltura::$ksession/*, $uid*/);
+        $markup  = local_kaltura_get_kdp_code($entry_obj, filter_kaltura::$player, filter_kaltura::$courseid, filter_kaltura::$ksession);
     } else {
-        $markup  = local_kaltura_get_kwidget_code($entry_obj, filter_kaltura::$player, filter_kaltura::$courseid, filter_kaltura::$ksession/*, $uid*/);
+        $markup  = local_kaltura_get_kwidget_code($entry_obj, filter_kaltura::$player, filter_kaltura::$courseid, filter_kaltura::$ksession);
     }
 
-return <<<OET
-$markup
-OET;
+    return $markup;
 }

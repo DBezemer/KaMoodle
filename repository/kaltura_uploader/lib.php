@@ -74,8 +74,7 @@ class repository_kaltura_uploader extends repository {
 
 
         $source = $uri.'/index.php/kwidget/wid/_'.$partner_id.
-                  '/uiconf_id/'.$ui_conf_id.'/entry_id/' . $mediaEntry->id . '/v/flash#'.
-                  $mediaEntry->name;
+                  '/uiconf_id/'.$ui_conf_id.'/entry_id/' . $mediaEntry->id . '/v/flash';
 
         return array(
             'url'=> $source,

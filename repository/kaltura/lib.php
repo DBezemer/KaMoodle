@@ -280,9 +280,8 @@ if ($version) {
         }
 
         public function get_listing($path='', $page = 1) {
-            global $USER, $DB;
+            global $COURSE;
 
-            $course_access = array();
             $ret = array();
 
             $system_access = repository_kaltura_get_course_access_list('repository/kaltura:systemvisibility');
@@ -292,7 +291,7 @@ if ($version) {
             $kaltura = new kaltura_connection();
             $connection = $kaltura->get_connection(true, KALTURA_SESSION_LENGTH);
 
-            $courseid = get_courseid_from_context($this->context);
+            $courseid = $COURSE->id;
 
             if (!$this->root_category_initialized() || empty($connection) ||
                 (empty($system_access) && empty($shared_access))) {
@@ -865,9 +864,8 @@ if ($version) {
         }
 
         public function get_listing($path='', $page = 1) {
-            global $USER, $DB;
+            global $COURSE;
 
-            $course_access = array();
             $ret = array();
 
             $system_access = repository_kaltura_get_course_access_list('repository/kaltura:systemvisibility');
@@ -877,7 +875,7 @@ if ($version) {
             $kaltura = new kaltura_connection();
             $connection = $kaltura->get_connection(true, KALTURA_SESSION_LENGTH);
 
-            $courseid = get_courseid_from_context($this->context);
+            $courseid = $COURSE->id;
 
             if (!$this->root_category_initialized() || empty($connection) ||
                 (empty($system_access) && empty($shared_access))) {
@@ -947,7 +945,6 @@ if ($version) {
 
             $course_criteria = '';
             $params          = '';
-            $sql             = '';
             $course_access   = array();
 
             switch ($this->searchfor) {

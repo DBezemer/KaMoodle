@@ -26,7 +26,7 @@ require_once('lib.php');
 
 require_login();
 
-global $SESSION, $USER;
+global $SESSION, $USER, $PAGE, $DB;
 
 $page          = optional_param('page', 0, PARAM_INT);
 $sort          = optional_param('sort', 'recent', PARAM_TEXT);
@@ -39,20 +39,18 @@ if ($enabled) {
     require_once(dirname(dirname(dirname(__FILE__))) . '/repository/kaltura/locallib.php');
 }
 
+$PAGE->set_context(context_system::instance());
 $mymedia = get_string('heading_mymedia', 'local_mymedia');
-$PAGE->set_context(get_system_context());
 $header  = format_string($SITE->shortname).": $mymedia";
 
 $PAGE->set_url('/local/mymedia/mymedia.php');
 $PAGE->set_course($SITE);
-
 $PAGE->set_pagetype('mymedia-index');
-$PAGE->set_pagelayout('frontpage');
+$PAGE->set_pagelayout('report');
 $PAGE->set_title($header);
 $PAGE->set_heading($header);
 $PAGE->add_body_class('mymedia-index');
 
-$PAGE->requires->js('/local/kaltura/js/jquery.js', true);
 $PAGE->requires->js('/local/kaltura/js/swfobject.js', true);
 $PAGE->requires->js('/local/kaltura/js/kcwcallback.js', true);
 $PAGE->requires->css('/local/mymedia/css/mymedia.css');
@@ -68,14 +66,7 @@ if (!$connection) {
 
 $partner_id    = local_kaltura_get_partner_id();
 $login_session = '';
-
-// Include javascript for screen recording widget
-$uiconf_id  = local_kaltura_get_player_uiconf('mymedia_screen_recorder');
 $host = local_kaltura_get_host();
-$url = new moodle_url("{$host}/p/{$partner_id}/sp/{$partner_id}/ksr/uiconfId/{$uiconf_id}");
-$PAGE->requires->js($url, true);
-$PAGE->requires->js('/local/kaltura/js/screenrecorder.js', true);
-
 $courseid = $PAGE->course->id;
 
 if (local_kaltura_has_mobile_flavor_enabled() && local_kaltura_get_enable_html5()) {
@@ -169,7 +160,11 @@ if ($enabled) {
         }
 
         // Get Video detail panel markup
-        $courses = enrol_get_my_courses(array('id','fullname'), 'visible DESC,sortorder ASC');
+        if(is_siteadmin()) {
+            $courses = $DB->get_records('course', null, null, 'id,fullname');
+        } else {
+            $courses = enrol_get_my_courses(array('id','fullname'), 'visible DESC,sortorder ASC');
+        }
 
         $video_details = $renderer->video_details_markup($courses);
         $dialog        = $renderer->create_simple_dialog_markup();

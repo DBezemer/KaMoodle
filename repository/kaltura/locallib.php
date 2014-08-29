@@ -528,7 +528,7 @@ function repository_kaltura_get_course_access_list($capability = '') {
         $context_path           = $role_assign_context_path;
         $context_path           = explode('/', $context_path);
         $role_assign_context_id = end($context_path);
-        $role_assign_context    = get_context_instance_by_id($role_assign_context_id);
+        $role_assign_context    = context::instance_by_id($role_assign_context_id);
 
         // Check if the user has a role assignment with the capability set to allowed
         $user_role_with_cap = array_intersect($roles_array, $roles_with_cap);
@@ -583,7 +583,7 @@ function repository_kaltura_get_course_access_list($capability = '') {
                         if (array_key_exists($courseid, $final_courses)) {
 
                             // Flag the course to have it's capability checked at the course level
-                            $course_context = get_context_instance(CONTEXT_COURSE, $courseid);
+                            $course_context = context_course::instance($courseid);
 
                             if (!has_capability($capability, $course_context)) {
                                 unset($final_courses[$courseid]);
@@ -611,7 +611,7 @@ function repository_kaltura_get_course_access_list($capability = '') {
             foreach ($final_courses as $id => $data) {
 
                 // Flag the course to have it's capability checked at the course level
-                $course_context = get_context_instance(CONTEXT_COURSE, $id);
+                $course_context = context_course::instance($id);
 
                 if (!has_capability($capability, $course_context)) {
                     unset($final_courses[$id]);
@@ -700,7 +700,7 @@ function repository_kaltura_get_all_courses_in_context($context_id) {
  * @return array
  */
 function repository_kaltura_get_user_kaltura_repo_access($userid, $capability) {
-    global $CFG, $DB;
+    global $DB;
 
     /* Get in 3 cheap DB queries...
      * - role assignments
@@ -847,7 +847,6 @@ function repository_kaltura_get_user_kaltura_repo_access($userid, $capability) {
 function repository_kaltura_format_data($video_data, $uri, $partner_id, $uiconf_id) {
 
     $results     = array();
-    $name        = '';
 
     if (empty($video_data)) {
         return $results;
@@ -855,21 +854,18 @@ function repository_kaltura_format_data($video_data, $uri, $partner_id, $uiconf_
 
     foreach ($video_data->objects as $video) {
 
-        $source = '';
-
         // the /v/flash is required in order to trick the TinyMCE popup and force it to display flash
         switch ($video->mediaType) {
             case KalturaMediaType::AUDIO:  // May need a special case to handle audio files
             case KalturaMediaType::VIDEO:
                 $name = $video->name . '.avi'; // Manually adding an image extension.  This is only to force moodle to display the correct icons
                 $source = $uri .'/index.php/kwidget/wid/_'.$partner_id.
-                          '/uiconf_id/'.$uiconf_id.'/entry_id/' . $video->id . '/v/flash#'.
-                          $video->name;
+                          '/uiconf_id/'.$uiconf_id.'/entry_id/' . $video->id . '/v/flash';
                 break;
 
             case KalturaMediaType::IMAGE:
                 $name = $video->name . '.png'; // Manually adding an image extension.  This is only to force moodle to display the correct icons
-                $source = $video->thumbnailUrl . '/height/200/width/300/type/1/v/flash#'. $video->name;
+                $source = $video->thumbnailUrl . '/height/200/width/300/type/1/v/flash';
                 break;
             default:
                 $name   = 'Unknown Media Type';
@@ -943,7 +939,6 @@ function repository_kaltura_create_courses_folders($courses, $path_prefix) {
            "  WHERE id IN ($course_access) ".
            "  ORDER BY fullname ASC ";
 
-    $params = array();
     $records = $DB->get_records_sql($sql, null);
 
     if (empty($records)) {
@@ -1068,10 +1063,7 @@ function repository_kaltura_get_shared_listing($ret, $path, $shared_access, $pag
 function repository_kaltura_get_site_video_listing($path, $type_path, $page) {
 
     $newpath     = array();
-    $listing     = array();
     $ret['list'] = array();
-    $sub_crumb   = '';
-    $type        = '';
 
     // Check if at least one path delimter exists
     if (0 >= substr_count($path, '/')) {
@@ -1139,10 +1131,7 @@ function repository_kaltura_get_course_video_listing($courses, $path, $type_path
     global $DB;
 
     $newpath     = array();
-    $listing     = array();
     $ret['list'] = array();
-    $sub_crumb   = '';
-    $type        = '';
 
     if (empty($courses)) {
         return $ret;
@@ -1277,8 +1266,6 @@ function repository_kaltura_search_own_videos($connection, $name, $tags, $page_i
 
     global $USER;
 
-    $results = array();
-
     // Create filter
     $filter = repository_kaltura_create_media_filter($name, $tags, $override_filter_search);
 
@@ -1312,8 +1299,6 @@ function repository_kaltura_search_mymedia_videos($connection, $search = '', $pa
 
     global $USER;
 
-    $results = array();
-
     // Create filter
     $filter = repository_kaltura_create_mymedia_filter($search, $sort);
 
@@ -1345,8 +1330,6 @@ function repository_kaltura_search_mymedia_videos($connection, $search = '', $pa
  */
 function repository_kaltura_search_videos($connection, $name, $tags, $courses = array(), $page_index = 0, $search_for = 'shared') {
 
-    $results = array();
-
     // Create filter
     $filter = repository_kaltura_create_media_filter($name, $tags);
 
@@ -1377,8 +1360,6 @@ function repository_kaltura_search_videos($connection, $name, $tags, $courses = 
  * @param int - current page index
  */
 function repository_kaltura_retrieve_site_shared_videos($connection, $filter, $page_index) {
-    $results = array();
-
     // Get metadata profile id
     // Retrieve the custom metadata profile id from the repository configuration option
     // This is a big performance gain as opposed to using @see repository_kaltura_get_metadata_profile()

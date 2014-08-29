@@ -34,7 +34,7 @@ define('KALTURA_PLAYER_PLAYERREGULARDARK',              6709411); // KDP dark
 define('KALTURA_PLAYER_PLAYERREGULARLIGHT',             6709421); // KDP light
 define('KALTURA_PLAYER_PLAYERVIDEOPRESENTATION',        4860481);
 define('KALTURA_FILE_UPLAODER',                         6386311); // KSU
-define('KALTURA_PLAYER_MYMEDIA_UPLOADER',               8464961); // KCW
+define('KALTURA_PLAYER_MYMEDIA_UPLOADER',               6709401); // KCW
 define('KALTURA_PLAYER_MYMEDIA_SCREEN_RECORDER',        9780761); // KSR
 define('KALTURA_PLAYER_KSU',                            1002613); // KSU
 
@@ -1342,7 +1342,7 @@ function local_kaltura_get_ready_entry_object($entry_id, $ready_only = true) {
 
     } catch (Exception $ex) {
         // Connection failed for some reason.  Maybe proxy settings?
-        $event = \local_kaltura\event\check_conversion_failed::create(array('error' => $ex->getMessage()));
+        $event = \local_kaltura\event\check_conversion_failed::create(array('other' => $ex->getMessage()));
         $event->trigger();
         return false;
     }
@@ -1390,14 +1390,6 @@ function local_kaltura_convert_ppt($entryId) {
 
         $document_url = $document_client->documents->convertPptToSwf($entryId);
 
-////Debug
-//$myFile = "/tmp/kcreate.txt";
-//$fh = fopen($myFile, 'a');
-//fwrite($fh, " -- convert_ppt  -- ");
-//fwrite($fh, $document_url);
-//fwrite($fh, ' ---- ');
-//fclose($fh);
-
         return 'y:'. $document_url;
     } catch(Exception $exp) {
         return 'n:' . $exp->getMessage();
@@ -1423,7 +1415,6 @@ function local_kaltura_check_document_status($document_id) {
 
             $documents = new KalturaDocumentsService($client_obj);
             $url = $documents->serve($document_id, $asset->id);
-            //$url = $client_obj->document->serve($document_id, $asset->id);
             $url = str_replace('&amp;', '&', $url);
             return 'y:' . $url;
         }
@@ -1434,12 +1425,6 @@ function local_kaltura_check_document_status($document_id) {
 
 function local_kaltura_create_swfdoc($document_entry_id, $video_entry_id) {
 
-////Debug
-//$myFile = "/tmp/kcreate.txt";
-//$fh = fopen($myFile, 'a');
-//fwrite($fh, " -- create_swfdoc 1st -- ");
-//fwrite($fh, ' ---- ');
-//fclose($fh);
     $client_obj = local_kaltura_login(true, '');
 
     $url = local_kaltura_get_host() .
@@ -1459,15 +1444,6 @@ function local_kaltura_create_swfdoc($document_entry_id, $video_entry_id) {
     $entry->dataContent = $xml;
     $entry->mediaType = KalturaEntryType::DOCUMENT;
     $result = $client_obj->data->add($entry);
-
-////Debug
-//$myFile = "/tmp/kcreate.txt";
-//$fh = fopen($myFile, 'a');
-//fwrite($fh, " -- create_swfdoc -- ");
-//$stringData = var_export($result, true);
-//fwrite($fh, $stringData);
-//fwrite($fh, ' ---- ');
-//fclose($fh);
 
     return $result->id;
 }
@@ -1506,6 +1482,11 @@ function local_kaltura_get_swfdoc_code($entry_id) {
  */
 function local_kaltura_has_mobile_flavor_enabled() {
 
+    static $enabled;
+    if(!empty($enabled)) {
+       return $enabled;
+    }
+
     $filter = new KalturaPermissionFilter();
     $filter->nameEqual = 'FEATURE_MOBILE_FLAVORS';
 
@@ -1529,11 +1510,13 @@ function local_kaltura_has_mobile_flavor_enabled() {
 
         }
 
+        $enabled = true;
         return true;
 
     } catch (Exception $ex) {
-        $event = \local_kaltura\event\check_mobile_failed::create(array('error' => $ex->getMessage()));
+        $event = \local_kaltura\event\check_mobile_failed::create(array('other' => $ex->getMessage()));
         $event->trigger();
+        $enabled = false;
         return false;
     }
 }
@@ -1555,7 +1538,7 @@ function local_kaltura_test_connection($client_obj) {
         return $results;
 
     } catch (Exception $ex) {
-        $event = \local_kaltura\event\check_connection_failed::create(array('error' => $ex->getMessage()));
+        $event = \local_kaltura\event\check_connection_failed::create(array('other' => $ex->getMessage()));
         $event->trigger();
         return false;
     }
@@ -1670,7 +1653,7 @@ function local_kaltura_video_type_valid($entry_obj) {
         }
     } catch (Exception $ex) {
         // Connection failed for some reason.  Maybe proxy settings?
-        $event = \local_kaltura\event\check_conversion_failed::create(array('error' => $ex->getMessage()));
+        $event = \local_kaltura\event\check_conversion_failed::create(array('other' => $ex->getMessage()));
         $event->trigger();
         return false;
     }

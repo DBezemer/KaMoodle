@@ -106,3 +106,4 @@ $string['noassignments'] = 'No Kaltura video assignments found in the course';
 $string['submitted'] = 'Submitted';
 $string['nosubmission'] = 'No submission';
 $string['nosubmissions'] = 'No submissions';
+$string['feedbackfromteacher'] = 'Feedback from {$a}';
